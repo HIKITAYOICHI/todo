@@ -88,13 +88,13 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
+        
         // Modelからデータの取得
         $task = Task::find($request->id);
-      if (empty($task)) {
-        abort(404);    
-      }
+        $task->status_id = 0;
+      
         return view('tasks.edit', ['task_form' => $task]);
     }
 
@@ -105,15 +105,17 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        
         // Modelからデータの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
-        $task_form = $repuest->all();
+        $task_form = $request->all();
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
+        $task->status_id = 0;
         $task->save();
         return redirect('/tasks');
     }
@@ -124,13 +126,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
         // Modelからデータの取得
-      $task = TASK::find($request->id);
+      $task = Task::find($request->id);
       // 削除
       $task->delete();
+      //戻る処理　
       return redirect('/tasks');
-        //消す処理と戻る処理　
+        
     }
 }

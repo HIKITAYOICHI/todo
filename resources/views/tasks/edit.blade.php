@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>リスト編集</h2>
-                <form action="{{ action('TaskController@store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ action('TaskController@update') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -19,14 +19,15 @@
                     @endif
                     <div class="form-group">
                          <label class="formGroupExampleInput"for="title">題名</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" name="title" value="{{ old('title') }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" name="title" value="{{ old('title', $task_form->title) }}">
                     </div>
                     <div class="form-group">
                          <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" name="body" rows="1"{{ old('body') }}>
+                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" name="body" value="{{ old('body', $task_form->body) }}">
                     </div>
                     {{ csrf_field() }}
                     <div class="text-right">
+                        <input type="hidden" name="id" value="{{ $task_form->id }}">
                         <input type="submit" class="btn btn-primary" value="更新">
                     </div>
                 </form>
