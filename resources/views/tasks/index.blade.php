@@ -32,39 +32,52 @@
             </div>
         </div>
         
-        リスト一覧
+       
+        <div class="row">
+            <h2>Todoリスト</h2>
+            
+            <div class="col-md-8">
+                <form action="{{ action('TaskController@index') }}" method="get">
+                    <div class="float-right">
+                        <div class="form-group row text-right">
+                            <label class="col-md-2">題名</label>
+                            <div class="col-md-8">
+                            <input type="text" class="form-control" name="cond_title" value="{{ $cond_title }}">
+                            </div>
+                            <div class="col-md-2">
+                            {{ csrf_field() }}
+                            <input type="submit" class="btn btn-primary" value="検索">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <table class="table table-reflow">
-                 <thead>
-                     <tr>
-                         <th></th>
-                         <th>題名</th>
-                         <th>Todo</th>
-                         <th>進捗</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                     <tr>
-                         <th scope="row">1</th>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                     </tr>
-                     <tr>
-                         <th scope="row">2</th>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                     </tr>
-                     <tr>
-                         <th scope="row">3</th>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                         <td>Table cell</td>
-                    </tr>
-                 </tbody>
-                 </table>
-         </div>
-        
+                
+                    <table class="table table-light">
+                        <thead>
+                            <tr>
+                                <th width="5%">ID</th>
+                                <th width="10%">題名</th>
+                                <th width="20%">Todo</th>
+                                <th width="20%">進捗</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($posts as $task)
+                                <tr>
+                                    <th>{{ $task->id }}</th>
+                                    <td>{{ \Str::limit($task->title, 100) }}</td>
+                                    <td>{{ \Str::limit($task->body, 250) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+            </table>
+                
+        </div>
     </div>
+        
 @endsection

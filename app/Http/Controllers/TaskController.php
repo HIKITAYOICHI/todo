@@ -17,11 +17,18 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //  index　addとダブり
-    public function index()
-    {
-        return view('tasks.index');
-    }
+    
+    public function index(Request $request)
+  {
+      $cond_title = $request->cond_title;
+      if ($cond_title != '') {
+          // 検索結果の取得
+          $posts = Task::where('title', $cond_title)->get();
+      } else {
+          $posts = Task::all();
+      }
+      return view('tasks.index', ['posts' => $posts, 'cond_title' => $cond_title]);
+  }
     
 
     /**
@@ -83,7 +90,12 @@ class TaskController extends Controller
      */
     public function edit()
     {
-        return view('tasks.edit');
+        // Modelからデータの取得
+        $task = Task::find($request->id);
+      if (empty($task)) {
+        abort(404);    
+      }
+        return view('tasks.edit', ['task_form' => $task]);
     }
 
     /**
@@ -95,7 +107,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/tasks/edit');
+        // Modelからデータの取得
+        $task = Task::find($request->id);
+        // 送信されてきたフォームデータの格納
+        $task_form = $repuest->all();
+        unset($task_form['_token']);
+        //データの上書き
+        $task->fill($task_form);
+        $task->save();
+        return redirect('/tasks');
     }
 
     /**
@@ -106,7 +126,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        // Modelの取得
+        // Modelからデータの取得
       $task = TASK::find($request->id);
       // 削除
       $task->delete();

@@ -25,10 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tasks','TaskController@add');
 Route::get('/tasks/create','TaskController@add');
 Route::post('tasks/create','TaskController@store');
-Route::get('tasks/edit', 'TaskController@add');
+Route::get('tasks/edit', 'TaskController@edit');
 Route::post('tasks/edit', 'TaskController@update');
 
-Route::resource('/tasks','TaskController');
-// ログインしてない場合のリダイレクト
-Route::get('/tasks', 'TaskController@add')->middleware('auth');
+Route::get('/tasks', 'TaskController@index')->middleware('auth');
+
 
