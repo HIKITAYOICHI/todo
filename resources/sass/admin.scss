@@ -1,0 +1,40 @@
+body {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #EAEFF0;
+  color: #000;
+}
+
+.navbar-laravel {
+  background-color: #EAEFF0;
+  box-shadow: 0 2px 4px rgba(234, 239, 240, 0.8);
+}
+
+.navbar-brand {
+  color: #000 !important;
+}
+
+.nav-link {
+  color: #000 !important;
+}
+
+.table-dark {
+  color: #000;
+}
+
+.list-group-item {
+  border-color: #000;
+  background-color: #EAEFF0;
+}
+// ユーザー登録画面
+.login-box {
+  background-color: rgba(234, 239, 240, 0.8);
+}
+
+.login-header {
+  background-color: rgba(234, 239, 240, 0.8);
+}
+
+.login-body {
+  background-color: rgba(234, 239, 240, 0.8);
+}

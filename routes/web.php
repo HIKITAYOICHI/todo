@@ -15,8 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/tasks','TaskController@add');
+Route::get('/tasks/create','TaskController@add');
+Route::post('tasks/create','TaskController@store');
+Route::get('tasks/edit', 'TaskController@add');
+Route::post('tasks/edit', 'TaskController@update');
+
+Route::resource('/tasks','TaskController');
+// ログインしてない場合のリダイレクト
+Route::get('/tasks', 'TaskController@add')->middleware('auth');
+
