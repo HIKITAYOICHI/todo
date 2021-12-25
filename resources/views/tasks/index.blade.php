@@ -24,6 +24,7 @@
                          <label class="formGroupExampleInput2"for="body">Todo</label>
                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" rows="1"{{ old('body') }}>
                     </div>
+                    <!--　調べておく　-->
                     {{ csrf_field() }}
                     <div class="text-right">
                         <input type="submit" class="btn btn-primary" value="追加">
@@ -34,7 +35,7 @@
         
        
         <div class="row">
-            <div class="col-md-10 mx-auto">
+            <div class="col-md-9 mx-auto">
                 <div class="col-md-8">
                 <h2>Todoリスト</h2>
                 </div>
@@ -59,13 +60,12 @@
            </div>
         </div>   
         <div class="row">
-            <div class="col-md-10 mx-auto">
+            <div class="col-md-9 mx-auto">
             <table class="table table-reflow">
                 
                     
                         <thead>
                             <tr>
-                                <th width="10%">ID</th>
                                 <th width="20%">題名</th>
                                 <th width="40%">Todo</th>
                                 <th width="10%">進捗</th>
@@ -76,10 +76,9 @@
                         <tbody>
                             @foreach($posts as $task)
                                 <tr>
-                                    <th>{{ $task->id }}</th>
                                     <td>{{ \Str::limit($task->title, 100) }}</td>
                                     <td>{{ \Str::limit($task->body, 250) }}</td>
-                                    <!-- 一段下は進捗入れる場所 -->
+                                    <!-- 一段下は進捗入れる場所　プルダウンとか -->
                                     <td></td>
                                     <td>
                                         <div>

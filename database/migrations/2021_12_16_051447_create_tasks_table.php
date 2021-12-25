@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('body');
             $table->integer('status_id');
+            //ゆーざーID
             $table->timestamps();
         });
     }
