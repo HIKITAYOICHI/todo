@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Task extends Model
 {
@@ -11,4 +12,11 @@ class Task extends Model
     public static $rules = array(
         'body' => 'required', 
         );
+    
+    
+    // Userモデルとのリレーション
+    public function user()
+    {
+    return $this->belongsTo('App\User');
+    }
 }

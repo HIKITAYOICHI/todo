@@ -10,7 +10,10 @@ class TaskController extends Controller
 {
     public function add()
     {
+        // $tasks = Task::where('user_id', Auth::user()->id) ⇦のコマンドでも動くがリレーションをしてるので
+        // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
         return view('tasks.index');
+       
     }
     /**
      * Display a listing of the resource.
@@ -62,6 +65,7 @@ class TaskController extends Controller
         unset($form['_token']);
         $task->fill($form);
         $task->status_id = 0;
+        $task->user_id = $request->user()->id;
         $task->save();
         
         return redirect('/tasks');
@@ -117,6 +121,7 @@ class TaskController extends Controller
         $task->fill($task_form);
         $task->status_id = 0;
         $task->save();
+        
         return redirect('/tasks');
     }
 

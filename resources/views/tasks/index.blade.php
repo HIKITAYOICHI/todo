@@ -58,7 +58,8 @@
                     </form>
                </div>
            </div>
-        </div>   
+        </div> 
+        
         <div class="row">
             <div class="col-md-9 mx-auto">
             <table class="table table-reflow">
@@ -74,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($posts as $task)
+                            @foreach(Auth::user()->tasks as $task)
                                 <tr>
                                     <td>{{ \Str::limit($task->title, 100) }}</td>
                                     <td>{{ \Str::limit($task->body, 250) }}</td>
