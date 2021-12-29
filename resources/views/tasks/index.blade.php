@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                          <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" rows="1"{{ old('body') }}>
+                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
                     </div>
                     <!--　調べておく　-->
                     {{ csrf_field() }}
@@ -47,7 +47,7 @@
                             
                             <label class="col-md-3">題名</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="cond_title" value="{{ $cond_title }}">
+                            <input type="text" class="form-control" name="search_title" value="{{ $search_title }}">
                             </div>
                             <div class="col-md-2">
                             {{ csrf_field() }}
@@ -75,12 +75,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(Auth::user()->tasks as $task)
+                            <!--絞り込み２段階-->
+                            @foreach($tasks as $task)
                                 <tr>
                                     <td>{{ \Str::limit($task->title, 100) }}</td>
                                     <td>{{ \Str::limit($task->body, 250) }}</td>
-                                    <!-- 一段下は進捗入れる場所　プルダウンとか -->
-                                    <td></td>
+                                    <!-- 下記<td>は進捗入れる場所　プルダウンで -->
+                                    <td>
+                                        
+                                    </td>
                                     <td>
                                         <div>
                                             <a href="{{ action('TaskController@edit', ['id' => $task->id]) }}">
