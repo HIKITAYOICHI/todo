@@ -17,6 +17,7 @@
         "laravelcollective/html": "^6.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "3.4.2",
         "facade/ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/ui": "2.x",

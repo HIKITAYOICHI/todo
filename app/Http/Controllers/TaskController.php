@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     public function add()
     {
+        // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
+        // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
         return view('tasks.index');
+       
     }
     /**
      * Display a listing of the resource.
@@ -20,14 +24,19 @@ class TaskController extends Controller
     
     public function index(Request $request)
   {
-      $cond_title = $request->cond_title;
-      if ($cond_title != '') {
+      $search_title = $request->search_title;
+      if ($search_title != '') {
           // 検索結果の取得
-          $posts = Task::where('title', $cond_title)->get();
-      } else {
-          $posts = Task::all();
+        //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
+          $tasks = Auth::user()->tasks->where('title', $search_title);
+        //   $tasks = Task::where('title', $search_title)->get();
+      } 
+      else {
+        //   入ってなければ全件取得
+        $tasks = Auth::user()->tasks;
+        // $tasks = Task::all();
       }
-      return view('tasks.index', ['posts' => $posts, 'cond_title' => $cond_title]);
+      return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
   }
     
 
@@ -62,6 +71,7 @@ class TaskController extends Controller
         unset($form['_token']);
         $task->fill($form);
         $task->status_id = 0;
+        $task->user_id = $request->user()->id;
         $task->save();
         
         return redirect('/tasks');
@@ -117,6 +127,7 @@ class TaskController extends Controller
         $task->fill($task_form);
         $task->status_id = 0;
         $task->save();
+        
         return redirect('/tasks');
     }
 
