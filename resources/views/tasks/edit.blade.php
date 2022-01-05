@@ -19,11 +19,19 @@
                     @endif
                     <div class="form-group">
                          <label class="formGroupExampleInput"for="title">題名</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" name="title" value="{{ old('title', $task_form->title) }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title', $task_form->title) }}">
                     </div>
                     <div class="form-group">
                          <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" name="body" value="{{ old('body', $task_form->body) }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body', $task_form->body) }}">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-4">
+                              <label class="formGroupExampleInput2"for="status_name">進捗</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="status_name" value="{{ old('status_name', $task_form->status_name) }}">
+                            </div>
+                        </div>
                     </div>
                     {{ csrf_field() }}
                     <div class="text-right">

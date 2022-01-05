@@ -82,11 +82,12 @@
                                     <td>{{ \Str::limit($task->body, 250) }}</td>
                                     <!-- 下記<td>は進捗入れる場所　プルダウンで -->
                                     <td>
-                                        <select name="status" class="js-attachSelect2">
-                                            <option value=1>未着</option>
-                                            <option value=2>未完了</option>
-                                            <option value=3>完了</option>
-                                        </select>
+                                        <!--<select name="status_id">-->
+                                        <!--    <option value=1>未着</option>-->
+                                        <!--    <option value=2>未完了</option>-->
+                                        <!--    <option value=3>完了</option>-->
+                                        <!--</select>-->
+                                        {{ \Str::limit($task->status_name, 50) }}
                                     </td>
                                     <td>
                                         <div>
