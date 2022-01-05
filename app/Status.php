@@ -4,13 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Status extends Model
 {
     //
-     // Taskモデルとのリレーション
-    public function task()
+    
+    // Taskモデルとの１対多でのリレーション
+    public function tasks()
     {
-    return $this->belongsTo('App\User');
+        return $this->hasMany('App\Task');
+        
     }
-}
+
 }

@@ -18,20 +18,23 @@
                         </ul>
                     @endif
                     <div class="form-group">
-                         <label class="formGroupExampleInput"for="title">題名</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title', $task_form->title) }}">
+                        <label class="formGroupExampleInput"for="title">題名</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="題名を入力して下さい" name="title" value="{{ old('title', $task_form->title) }}">
                     </div>
                     <div class="form-group">
-                         <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body', $task_form->body) }}">
+                        <label class="formGroupExampleInput2"for="body">Todo</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="todoを入力して下さい" name="body" value="{{ old('body', $task_form->body) }}">
                     </div>
+                    //データベースから取得したデータでセレクトを作る。
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-4">
-                              <label class="formGroupExampleInput2"for="status_name">進捗</label>
-                              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="status_name" value="{{ old('status_name', $task_form->status_name) }}">
-                            </div>
-                        </div>
+                    <div class="text-right">
+                        <label for=status_name>進捗</label>
+                            <select name="status_name">
+                            <option value="未着">未着</option>
+                            <option value="未完了">未完了</option>
+                            <option value="完了">完了</option>
+                            </select>
+                    </div>
                     </div>
                     {{ csrf_field() }}
                     <div class="text-right">

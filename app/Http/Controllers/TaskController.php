@@ -31,10 +31,13 @@ class TaskController extends Controller
           //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
           $tasks = Auth::user()->tasks->where('title', $search_title);
         //   $tasks = Task::where('title', $search_title)->get();
+        // $tasks = Task::find(1);
+      
       } 
       else {
        //   入ってなければ全件取得
         $tasks = Auth::user()->tasks;
+        
         // $tasks = Task::all();
       }
        return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
