@@ -18,21 +18,22 @@
                     @endif
                     <div class="form-group">
                          <label class="formGroupExampleInput"for="title">題名</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="題名を入力して下さい" name="title" value="{{ old('title') }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title') }}">
                     </div>
                     <div class="form-group">
                          <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="todoを入力して下さい" name="body" value="{{ old('body') }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
                     </div>
-                    <!--<div class="text-right">-->
-                    <!--       <label for=status_name>進捗</label>-->
-                    <!--            <select name="status_name">-->
-                    <!--                <option value="未着" selected>未着</option>-->
-                    <!--                <option value="未完了">未完了</option>-->
-                    <!--                <option value="完了">完了</option>-->
-                    <!--            </select>-->
-                    <!--</div>-->
-                    
+                    <div class="form-group">
+                    <div class="text-right">
+                        <label for=status_name>進捗</label>
+                            <select name="status_name">
+                            <option value="未着">未着</option>
+                            <option value="未完了">未完了</option>
+                            <option value="完了">完了</option>
+                            </select>
+                    </div>
+                    </div>
                     <!--　調べておく　-->
                     {{ csrf_field() }}
                     <div class="text-right">
@@ -96,7 +97,7 @@
                                         <!--    <option value=2>未完了</option>-->
                                         <!--    <option value=3>完了</option>-->
                                         <!--</select>-->
-                                        <!--{{ \Str::limit($task->status->status_id, 50) }}-->
+                                        {{ \Str::limit($task->status_name, 50) }}
                                     </td>
                                     <td>
                                         <div>

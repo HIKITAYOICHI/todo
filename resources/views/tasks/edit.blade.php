@@ -29,7 +29,7 @@
                     <div class="form-group">
                     <div class="text-right">
                         <label for=status_name>進捗</label>
-                            <select name="status_id">
+                            <select name="status_name">
                             <option value="未着">未着</option>
                             <option value="未完了">未完了</option>
                             <option value="完了">完了</option>
