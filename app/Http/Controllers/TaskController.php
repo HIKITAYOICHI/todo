@@ -132,6 +132,8 @@ class TaskController extends Controller
         $task->status_id = 0;
         $task->save();
         
+        
+        
         return redirect('/tasks');
     }
 

@@ -96,7 +96,7 @@
                                         <!--    <option value=2>未完了</option>-->
                                         <!--    <option value=3>完了</option>-->
                                         <!--</select>-->
-                                        {{ \Str::limit($task->status->status_name, 50) }}
+                                        <!--{{ \Str::limit($task->status->status_id, 50) }}-->
                                     </td>
                                     <td>
                                         <div>

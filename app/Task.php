@@ -15,12 +15,12 @@ class Task extends Model
         );
     
     
-    // Userモデルとのリレーション
+    // Userモデルとの多対１でのリレーション
     public function user()
     {
     return $this->belongsTo('App\User');
     }
-    // Statusモデルとのリレーション
+    // Statusモデルとの多対１でのリレーション
     public function status()
     {
     return $this->belongsTo('App\Status');
