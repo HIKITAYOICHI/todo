@@ -15,10 +15,10 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->string('title');
             $table->string('body');
-            $table->string('status_id');
-            //ゆーざーID
+            $table->string('status_name')->default('未着');
             $table->timestamps();
         });
     }

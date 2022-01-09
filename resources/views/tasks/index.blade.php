@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>リスト登録</h2>
+                <h2>Todoリスト登録</h2>
                 <form action="{{ action('TaskController@store') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
@@ -24,16 +24,7 @@
                          <label class="formGroupExampleInput2"for="body">Todo</label>
                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
                     </div>
-                    <div class="form-group">
-                    <div class="text-right">
-                        <label for=status_name>進捗</label>
-                            <select name="status_name">
-                            <option value="未着">未着</option>
-                            <option value="未完了">未完了</option>
-                            <option value="完了">完了</option>
-                            </select>
-                    </div>
-                    </div>
+                    <input type="hidden" class="form-control" id="formGroupExampleInput" placeholder="" name="status_name" value="未着">
                     <!--　調べておく　-->
                     {{ csrf_field() }}
                     <div class="text-right">
@@ -47,7 +38,7 @@
         <div class="row">
             <div class="col-md-9 mx-auto">
                 <div class="col-md-8">
-                <h2>Todoリスト</h2>
+                <h2>リスト一覧</h2>
                 </div>
             
                 <div class="col-md-4">

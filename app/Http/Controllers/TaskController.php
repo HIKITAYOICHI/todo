@@ -71,7 +71,7 @@ class TaskController extends Controller
         $form = $request->all();
         unset($form['_token']);
         $task->fill($form);
-        $task->status_id = 0;
+        // $task->status_id = 0;
         $task->user_id = $request->user()->id;
         $task->save();
         
@@ -104,7 +104,7 @@ class TaskController extends Controller
         
         // Modelからデータの取得
         $task = Task::find($request->id);
-        $task->status_id = 0;
+        // $task->status_id = 0;
       
         return view('tasks.edit', ['task_form' => $task]);
     }
@@ -126,7 +126,7 @@ class TaskController extends Controller
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
-        $task->status_id = 0;
+        // $task->status_id = 0;
         $task->save();
         
         return redirect('/tasks');

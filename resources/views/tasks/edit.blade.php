@@ -8,7 +8,7 @@
 <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>リスト編集</h2>
+                <h2>Todoリスト編集</h2>
                 <form action="{{ action('TaskController@update') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
@@ -25,7 +25,7 @@
                         <label class="formGroupExampleInput2"for="body">Todo</label>
                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="todoを入力して下さい" name="body" value="{{ old('body', $task_form->body) }}">
                     </div>
-                    //データベースから取得したデータでセレクトを作る。
+                    <!--データベースから取得したデータでセレクトを作る。-->
                     <div class="form-group">
                     <div class="text-right">
                         <label for=status_name>進捗</label>
