@@ -11,6 +11,8 @@ class TaskController extends Controller
 {
     public function add()
     {
+        // $tasks = Task::where('user_id', Auth::user()->id) ⇦のコマンドでも動くがリレーションをしてるので
+        // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
         // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
         // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
         return view('tasks.index');
@@ -26,18 +28,17 @@ class TaskController extends Controller
   {
       $search_title = $request->search_title;
       if ($search_title != '') {
-          // 検索結果の取得
-        //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
+          //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
           $tasks = Auth::user()->tasks->where('title', $search_title);
         //   $tasks = Task::where('title', $search_title)->get();
       } 
       else {
-        //   入ってなければ全件取得
+       //   入ってなければ全件取得
         $tasks = Auth::user()->tasks;
         // $tasks = Task::all();
       }
-      return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
-  }
+       return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
+   }
     
 
     /**
@@ -64,13 +65,11 @@ class TaskController extends Controller
         
         // データベースに登録できる処理入れる
         //mysqlでデータベースに保存されてるか確認
-        
-        
         $task = new Task;
         $form = $request->all();
         unset($form['_token']);
         $task->fill($form);
-        $task->status_id = 0;
+        // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
         
@@ -103,7 +102,7 @@ class TaskController extends Controller
         
         // Modelからデータの取得
         $task = Task::find($request->id);
-        $task->status_id = 0;
+        // $task->status_id = 0;
       
         return view('tasks.edit', ['task_form' => $task]);
     }
@@ -125,7 +124,7 @@ class TaskController extends Controller
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
-        $task->status_id = 0;
+        // $task->deadline = '2022-01-01';
         $task->save();
         
         return redirect('/tasks');

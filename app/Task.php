@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Status;
 
 class Task extends Model
 {
@@ -14,9 +15,14 @@ class Task extends Model
         );
     
     
-    // Userモデルとのリレーション
+    // Userモデルとの多対１でのリレーション
     public function user()
     {
     return $this->belongsTo('App\User');
+    }
+    // Statusモデルとの多対１でのリレーション
+    public function status()
+    {
+    return $this->belongsTo('App\Status');
     }
 }

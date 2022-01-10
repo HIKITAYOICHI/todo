@@ -23,7 +23,7 @@
     <body>
         <div id="app">
             {{-- 画面上部に表示するナビゲーションバー --}}
-            <nav class="navbar navbar-expand-md navbar-light bg-info navbar-laravel">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
