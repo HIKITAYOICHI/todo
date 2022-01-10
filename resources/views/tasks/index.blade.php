@@ -64,16 +64,17 @@
         </div> 
         
         <div class="row">
-            <div class="col-md-9 mx-auto">
+            <div class="col-md-11 mx-auto">
                 <table class="table table-reflow">
                     <thead class="thead-light">
                         <tr>
-                            <th width="20%">題名</th>
-                            <th width="40%">Todo</th>
-                            <th width="20%">期限</th>
+                            <th width="10%">題名</th>
+                            <th width="30%">Todo</th>
+                            <th width="10%">登録日</th>
+                            <th width="10%">期限</th>
                             <th width="10%">進捗</th>
-                            <th width="5%"></th>
-                            <th width="5%"></th>
+                            <th width="10%"></th>
+                            <th width="10%"></th>
                         </tr>
                     </thead>
                 <tbody>
@@ -82,9 +83,9 @@
                         <tr>
                             <td>{{ \Str::limit($task->title, 100) }}</td>
                             <td>{{ \Str::limit($task->body, 100) }}</td>
+                            <td>{{$task->created_at->format('Y/m/d')}}</td>
                             <td>
-                                <!--日付持ってくる-->
-                                <!--<input type="date">-->
+                                <!--期限持ってくる-->
                                 {{$task->deadline}}
                             </td>
                             <td>{{ \Str::limit($task->status_name, 50) }}</td>
