@@ -24,8 +24,7 @@
                          <label class="formGroupExampleInput2"for="body">Todo</label>
                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
                     </div>
-                    <!--下記のinputでデフォルト値を'未着'に変更-->
-                   
+                    <input type="hidden" class="form-control" id="formGroupExampleInput" placeholder="" name="status_name" value="未着">
                     <!--　調べておく　-->
                     {{ csrf_field() }}
                     <div class="text-right">
