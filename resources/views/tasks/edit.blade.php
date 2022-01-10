@@ -25,12 +25,19 @@
                     <label class="formGroupExampleInput2"for="body">Todo</label>
                     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="todoを入力して下さい" name="body" value="{{ old('body', $task_form->body) }}">
                 </div>
-                    <!--データベースから取得したデータでセレクトを作る。-->
+                　　<!--下記deadlineの送信-->
+                <div class="form-group">
+                        <div class="text-right">
+                            <label for="deadline">期限変更<lavel>
+                            <input type="date" name="deadline" value="{{ old('deadline', $task_form->deadline) }}">
+                        </div>
+                    </div>
+                    <!--下記status_nameの送信-->
                 <div class="form-group">
                     <div class="text-right">
-                        <label for=status_name>進捗</label>
+                        <label for="status_name">進捗状態</label>
                         <select name="status_name">
-                           <option value="未着">未着</option>
+                            <option value="未着">未着</option>
                             <option value="未完了">未完了</option>
                             <option value="完了">完了</option>
                         </select>

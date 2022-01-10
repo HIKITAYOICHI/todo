@@ -18,23 +18,29 @@
                     @endif
                     <div class="form-group">
                          <label class="formGroupExampleInput"for="title">題名</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title') }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="題名を登録して下さい" name="title" value="{{ old('title') }}">
                     </div>
                     <div class="form-group">
                          <label class="formGroupExampleInput2"for="body">Todo</label>
-                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
+                         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Todoを登録して下さい" name="body" value="{{ old('body') }}">
                     </div>
-                    <input type="hidden" class="form-control" id="formGroupExampleInput" placeholder="" name="status_name" value="未着">
-                    <!--　調べておく　-->
+                    <!--下記日付の登録フォーム-->
+                    <div class="form-group">
+                        <div class="text-right">
+                            <label for="deadline">期限入力<lavel>
+                            <input type="date" name="deadline">
+                        </div>
+                    </div>
+                    <!--下記status_nameのデフォルト値の入力-->
+                    <input type="hidden" name="status_name" value="未着">
+                    <!--下記ボタンの右寄せ-->
                     {{ csrf_field() }}
                     <div class="text-right">
-                        <input type="submit" class="btn btn-primary" value="追加">
+                        <input type="submit" class="btn btn-primary" value="登録">
                     </div>
                 </form>
             </div>
         </div>
-        
-       
         <div class="row">
             <div class="col-md-9 mx-auto">
                 <div class="col-md-8">
@@ -64,10 +70,10 @@
                         <tr>
                             <th width="20%">題名</th>
                             <th width="40%">Todo</th>
-                            <th width="10%">期限</th>
+                            <th width="20%">期限</th>
                             <th width="10%">進捗</th>
-                            <th width="10%"></th>
-                            <th width="10%"></th>
+                            <th width="5%"></th>
+                            <th width="5%"></th>
                         </tr>
                     </thead>
                 <tbody>
@@ -75,9 +81,11 @@
                     @foreach($tasks as $task)
                         <tr>
                             <td>{{ \Str::limit($task->title, 100) }}</td>
-                            <td>{{ \Str::limit($task->body, 250) }}</td>
+                            <td>{{ \Str::limit($task->body, 100) }}</td>
                             <td>
-                                 <!--日付持ってくる-->
+                                <!--日付持ってくる-->
+                                <!--<input type="date">-->
+                                {{$task->deadline}}
                             </td>
                             <td>{{ \Str::limit($task->status_name, 50) }}</td>
                             <td>
