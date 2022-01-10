@@ -65,13 +65,11 @@ class TaskController extends Controller
         
         // データベースに登録できる処理入れる
         //mysqlでデータベースに保存されてるか確認
-        
-        
         $task = new Task;
         $form = $request->all();
         unset($form['_token']);
         $task->fill($form);
-        // $task->status_id = 0;
+        // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
         
@@ -126,7 +124,7 @@ class TaskController extends Controller
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
-        // $task->status_id = 0;
+        // $task->deadline = '2022-01-01';
         $task->save();
         
         return redirect('/tasks');
