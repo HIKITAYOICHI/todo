@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('body');
             $table->string('status_name')->default('未着');
+            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }
