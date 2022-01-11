@@ -15,6 +15,7 @@ class TaskController extends Controller
         // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
         // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
         // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
+        
         return view('tasks.index');
        
     }
@@ -72,6 +73,8 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
+        
+        $tasks = Task::orderBy('deadline', 'desc')->get();
         
         return redirect('/tasks');
         
