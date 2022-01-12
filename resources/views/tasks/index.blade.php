@@ -62,8 +62,9 @@
                </div>
             </div>
             <div>
-                <a href="{{ action('TaskController@index', ['sortby' => "desc"]) }}">降順</a>
-                <a href="{{ action('TaskController@index', ['sortby' => "asc"]) }}">昇順</a>
+                <label>並び替え</lavel>
+                <a href="{{ action('TaskController@index', ['sortby' => "降順"]) }}">降順</a>
+                <a href="{{ action('TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
            </div>
         </div> 
         

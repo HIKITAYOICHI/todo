@@ -34,15 +34,18 @@ class TaskController extends Controller
       } 
       else {
        
-       if ($by == 'desc'){
-        //   $by にdescが入れば降順
-           $tasks = Auth::user()->orderbytasks;
+       if ($by == '降順'){
+        //   $by に降順が入ればdesc
+           $tasks = Auth::user()->orderbytasksdesc;
+       }
+       else if($by == '昇順'){
+       //   $by に昇順が入ればasc
+           $tasks = Auth::user()->orderbytasksasc;
        }
        else{
            //   入ってなければ全件取得
            $tasks=Auth::user()->tasks;   
        }
-       
       }
        return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
    }
