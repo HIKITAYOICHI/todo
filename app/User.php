@@ -45,5 +45,8 @@ class User extends Authenticatable
         
     }
     
-    // 
+    public function orderbytasks()
+    {
+     return $this->hasMany('App\Task')->orderBy('deadline', 'desc');
+    }
 }

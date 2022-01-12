@@ -60,9 +60,10 @@
                         </div>
                     </form>
                </div>
-           </div>
-           <div>
-               <!--ここに期限順のソートを入れる-->
+            </div>
+            <div>
+                <a href="{{ action('TaskController@index', ['sortby' => "desc"]) }}">降順</a>
+                <a href="{{ action('TaskController@index', ['sortby' => "asc"]) }}">昇順</a>
            </div>
         </div> 
         
