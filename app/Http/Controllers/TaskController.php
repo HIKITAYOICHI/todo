@@ -16,31 +16,39 @@ class TaskController extends Controller
         // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
         // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
         return view('tasks.index');
-       
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
     public function index(Request $request)
   {
       $search_title = $request->search_title;
+      $by = isset($request->sortby) ? $request->sortby : "asc";
+      
       if ($search_title != '') {
           //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
           $tasks = Auth::user()->tasks->where('title', $search_title);
         //   $tasks = Task::where('title', $search_title)->get();
       } 
       else {
-       //   入ってなければ全件取得
-        $tasks = Auth::user()->tasks;
-        // $tasks = Task::all();
+       
+       if ($by == '降順'){
+        //   $by に降順が入ればdesc
+           $tasks = Auth::user()->orderbytasksdesc;
+       }
+       else if($by == '昇順'){
+       //   $by に昇順が入ればasc
+           $tasks = Auth::user()->orderbytasksasc;
+       }
+       else{
+           //   入ってなければ全件取得
+           $tasks=Auth::user()->tasks;   
+       }
       }
        return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
    }
-    
-
     /**
      * Show the form for creating a new resource.
      *
@@ -49,9 +57,7 @@ class TaskController extends Controller
     public function create()
     {
         return redirect('/tasks');
-        
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -72,6 +78,8 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
+        
+        $tasks = Task::orderBy('deadline', 'desc')->get();
         
         return redirect('/tasks');
         
