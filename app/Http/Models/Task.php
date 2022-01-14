@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-use App\Status;
+use App\Admin;
 
 class Task extends Model
 {
@@ -16,6 +16,12 @@ class Task extends Model
     public function user()
     {
     return $this->belongsTo('App\User');
+    }
+    
+    // Adminモデルとの多対１でのリレーション
+    public function admin()
+    {
+    return $this->belongsTo('App\Admin');
     }
     
 }
