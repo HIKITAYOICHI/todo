@@ -65,12 +65,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
+        // vendor/laravel/ui/auth-backend/RegistersUsers.php内のアクションから参照
         Route::get('register', 'Auth\RegisterController@register');
         Route::get('register', 'Auth\RegisterController@register');
-        // Auth::routes([
-        // 'register' => true,
         
-        // ]);
     });
         
 });
