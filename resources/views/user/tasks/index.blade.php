@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layouts.app')
+@extends('layouts.user.app')
 {{-- app.blade.phpの@yield('title')に'埋めこみ --}}
 @section('title', 'task management')
 {{-- app.blade.phpの@yield('content')に以下のタグを埋め込む --}}
