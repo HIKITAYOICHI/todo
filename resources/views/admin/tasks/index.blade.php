@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>Todoリスト登録</h2>
+                <h2>Admin-Todoリスト登録</h2>
                 <form action="{{ action('Admin\TaskController@store') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
