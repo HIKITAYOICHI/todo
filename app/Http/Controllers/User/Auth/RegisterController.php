@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -43,7 +43,13 @@ class RegisterController extends Controller
     {
         $this->middleware('guest:user');
     }
-    
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     // Guardの認証方法を指定
     protected function guard()
     {
@@ -55,13 +61,7 @@ class RegisterController extends Controller
     {
         return view('user.auth.register');
     }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    
     protected function validator(array $data)
     {
         return Validator::make($data, [

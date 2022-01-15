@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
-use App\Task;
+use App\Models\Task;
 
-
-class Admin extends Authenticatable
+class User extends Authenticatable
 {
     use Notifiable;
 
@@ -39,5 +37,21 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    // Taskモデルとの１対多でのリレーション
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task');
+        
+    }
+    
+    public function orderbytasksdesc()
+    {
+     return $this->hasMany('App\Models\Task')->orderBy('deadline', 'desc');
+    }
+    public function orderbytasksasc()
+    {
+     return $this->hasMany('App\Models\Task')->orderBy('deadline', 'asc');
+    }
     
 }

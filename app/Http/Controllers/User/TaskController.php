@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Task;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -15,7 +15,7 @@ class TaskController extends Controller
         // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
         // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
         // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
-        return view('tasks.index');
+        return view('user.tasks.index');
     }
     /**
      * Display a listing of the resource.
@@ -47,7 +47,7 @@ class TaskController extends Controller
            $tasks=Auth::user()->tasks;   
        }
       }
-       return view('tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
+       return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
    }
     /**
      * Show the form for creating a new resource.
@@ -56,7 +56,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return redirect('/tasks');
+        return redirect('user/tasks');
     }
     /**
      * Store a newly created resource in storage.
@@ -81,7 +81,7 @@ class TaskController extends Controller
         
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        return redirect('/tasks');
+        return redirect('user/tasks');
         
         
         //select * from taskmanagement.tasks;
@@ -112,7 +112,7 @@ class TaskController extends Controller
         $task = Task::find($request->id);
         // $task->status_id = 0;
       
-        return view('tasks.edit', ['task_form' => $task]);
+        return view('user.tasks.edit', ['task_form' => $task]);
     }
 
     /**
@@ -135,7 +135,7 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->save();
         
-        return redirect('/tasks');
+        return redirect('user/tasks');
     }
 
     /**
@@ -151,7 +151,7 @@ class TaskController extends Controller
       // 削除
       $task->delete();
       //戻る処理　
-      return redirect('/tasks');
+      return redirect('user/tasks');
         
     }
 }

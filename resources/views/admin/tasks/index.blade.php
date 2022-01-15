@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>Todoリスト登録</h2>
-                <form action="{{ action('TaskController@store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ action('Admin\TaskController@store') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -47,11 +47,11 @@
                     <h2>リスト一覧</h2>
                 </div>
                 <div class="col-md-4">
-                    <form action="{{ action('TaskController@index') }}" method="get">
+                    <form action="{{ action('Admin\TaskController@index') }}" method="get">
                         <div class="form-group row ">
                             <label class="col-md-3">題名</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="search_title" value="{{ $search_title }}">
+                                <input type="text" class="form-control" name="search_title" value="{{ $search_title ?? '' }}">
                             </div>
                             <div class="col-md-2">
                             {{ csrf_field() }}
@@ -63,8 +63,8 @@
             </div>
             <div>
                 <label>並び替え</lavel>
-                <a href="{{ action('TaskController@index', ['sortby' => "降順"]) }}">降順</a>
-                <a href="{{ action('TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
+                <a href="{{ action('Admin\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
+                <a href="{{ action('Admin\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
            </div>
         </div> 
         
@@ -88,6 +88,7 @@
                         <tr>
                             <td>{{ \Str::limit($task->title, 100) }}</td>
                             <td>{{ \Str::limit($task->body, 100) }}</td>
+                            <!--下記登録日のフォーマット-->
                             <td>{{$task->created_at->format('Y/m/d')}}</td>
                             <td>
                                 <!--期限持ってくる-->
@@ -96,14 +97,14 @@
                             <td>{{ \Str::limit($task->status_name, 50) }}</td>
                             <td>
                                 <div>
-                                    <a href="{{ action('TaskController@edit', ['id' => $task->id]) }}">
+                                    <a href="{{ action('Admin\TaskController@edit', ['id' => $task->id]) }}">
                                     <input type="submit" class="btn btn-primary" value="編集">
                                     </a>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    <a href="{{ action('TaskController@delete', ['id' => $task->id]) }}">
+                                    <a href="{{ action('Admin\TaskController@delete', ['id' => $task->id]) }}">
                                     <input type="submit" class="btn btn-danger" value="削除">
                                     </a>
                                 </div>

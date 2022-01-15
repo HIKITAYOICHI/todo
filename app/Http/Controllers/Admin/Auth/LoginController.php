@@ -42,28 +42,24 @@ class LoginController extends Controller
     }
     
     protected function guard()
-     {
-         //adminという権限の付与
-         return Auth::guard('admin');
-         
-     }
+    {
+        return Auth::guard('admin');
+    }
+    
+    public function showLoginForm()
+    {
+        return view('admin.auth.login');
+    }
+    
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
 
-     //ログインフォームのview指定
-     public function showLoginForm()
-     {
-         return view('admin.auth.login');
-     }
-
-     //ログアウトの処理
-     public function logout(Request $request)
-     {
-         Auth::guard('admin')->logout();
-         return $this->loggedOut($request);
-     }
-
-     //ログアウト時のリダイレクト先
-     public function loggedOut(Request $request)
-     {
-         return redirect(route('admin.login'));
-     }
+        return $this->loggedOut($request);
+    }
+    
+    public function loggedOut(Request $request)
+    {
+        return redirect(route('admin.login'));
+    }
 }
