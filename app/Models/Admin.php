@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Task;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Task;
 
-class User extends Authenticatable
+
+class Admin extends Authenticatable
 {
     use Notifiable;
 
@@ -41,17 +43,17 @@ class User extends Authenticatable
     // Taskモデルとの１対多でのリレーション
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Models\Task');
         
     }
     
     public function orderbytasksdesc()
     {
-     return $this->hasMany('App\Task')->orderBy('deadline', 'desc');
+     return $this->hasMany('App\Models\Task')->orderBy('deadline', 'desc');
     }
     public function orderbytasksasc()
     {
-     return $this->hasMany('App\Task')->orderBy('deadline', 'asc');
+     return $this->hasMany('App\Models\Task')->orderBy('deadline', 'asc');
     }
     
 }
