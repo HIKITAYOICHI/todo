@@ -21,7 +21,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for arrays.->orderBy('deadline', 'desc');
      *
      * @var array
      */

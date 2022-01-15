@@ -29,17 +29,17 @@ class TaskController extends Controller
         
         else {
             if ($by == '降順'){
-        //   $by に降順が入ればdesc
-            $tasks = Auth::user()->orderbytasksdesc;
-        }
-        else if($by == '昇順'){
-      //   $by に昇順が入ればasc
-            $tasks = Auth::user()->orderbytasksasc;
-        }
-        else {
-          // それ以外は全件取得
-          $tasks = Task::all();
-        }
+                //   $by に降順が入ればdesc
+                $tasks = Task::all()->sortBydesc('deadline');
+            }
+            else if($by == '昇順'){
+                //   $by に昇順が入ればasc
+                $tasks = Task::all()->sortBy('deadline');
+            }
+            else {
+                // それ以外は全件取得
+                $tasks = Task::all();
+            }
         }
         return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
     }    

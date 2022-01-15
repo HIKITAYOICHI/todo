@@ -18,8 +18,9 @@ Route::get('/', function () {
     
 });
 
-
+//
 Auth::routes();
+
 // ユーザー
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     // ログイン認証関連
@@ -48,7 +49,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // ログイン認証関連
     Auth::routes([
-        'register' => true,
+        'register' => false,
         'reset'    => false,
         'verify'   => false
     ]);
@@ -64,6 +65,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
+        Route::get('register', 'Auth\RegisterController@register');
+        Route::get('register', 'Auth\RegisterController@register');
+        // Auth::routes([
+        // 'register' => true,
+        
+        // ]);
     });
         
 });
