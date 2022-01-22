@@ -29,6 +29,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         'reset'    => false,
         'verify'   => false
     ]);
+    // Mail
+    Route::post('register', 'MailSendController@send');
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
         // TOPページ
@@ -70,9 +72,3 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         
     });
 });
-// Mail
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/mail', 'MailSendController@send');
