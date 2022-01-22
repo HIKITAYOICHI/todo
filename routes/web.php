@@ -42,7 +42,6 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
     });
-        
 });
 
 // 管理者
@@ -70,5 +69,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('register', 'Auth\RegisterController@register');
         
     });
-        
 });
+// Mail
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/mail', 'MailSendController@send');
