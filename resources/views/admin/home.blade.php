@@ -16,6 +16,9 @@
 
                     {{ __('Admin logged in!') }}
                 </div>
+                <div>
+                    <a href="{{ action('Admin\TaskController@add') }}">管理画面へ</a>
+                </div>
             </div>
         </div>
     </div>

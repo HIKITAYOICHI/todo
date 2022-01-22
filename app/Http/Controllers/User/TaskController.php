@@ -15,7 +15,7 @@ class TaskController extends Controller
         // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
         // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
         // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
-        return view('user.tasks.index');
+        return redirect('user/tasks');
     }
     /**
      * Display a listing of the resource.
@@ -23,32 +23,31 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-  {
-      $search_title = $request->search_title;
-      $by = isset($request->sortby) ? $request->sortby : "asc";
-      
-      if ($search_title != '') {
-          //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
-          $tasks = Auth::user()->tasks->where('title', $search_title);
-        //   $tasks = Task::where('title', $search_title)->get();
-      } 
-      else {
-       
-       if ($by == '降順'){
-        //   $by に降順が入ればdesc
-           $tasks = Auth::user()->orderbytasksdesc;
-       }
-       else if($by == '昇順'){
-       //   $by に昇順が入ればasc
-           $tasks = Auth::user()->orderbytasksasc;
-       }
-       else{
-           //   入ってなければ全件取得
-           $tasks=Auth::user()->tasks;   
-       }
-      }
+    {
+        $search_title = $request->search_title;
+        $by = isset($request->sortby) ? $request->sortby : "asc";
+          
+        if ($search_title != '') {
+              //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
+              $tasks = Auth::user()->tasks->where('title', $search_title);
+            //   $tasks = Task::where('title', $search_title)->get();
+        } 
+        else {
+            if ($by == '降順'){
+                 //   $by に降順が入ればdesc
+                 $tasks = Auth::user()->orderbytasksdesc;
+            }
+            else if($by == '昇順'){
+                 //   $by に昇順が入ればasc
+                 $tasks = Auth::user()->orderbytasksasc;
+            }
+            else{
+                 //   入ってなければ全件取得
+                 $tasks=Auth::user()->tasks;   
+            }
+        }
        return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
-   }
+    }
     /**
      * Show the form for creating a new resource.
      *

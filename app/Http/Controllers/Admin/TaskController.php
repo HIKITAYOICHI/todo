@@ -11,7 +11,7 @@ class TaskController extends Controller
 {
     public function add()
     {
-        return view('admin.tasks.index');
+        return redirect('admin/tasks');
     }
     /**
      * Display a listing of the resource.

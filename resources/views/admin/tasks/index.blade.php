@@ -73,14 +73,13 @@
                 <table class="table table-reflow">
                     <thead class="thead-light">
                         <tr>
-                            <th width="10%">User_ID</th>
-                            <th width="10%">題名</th>
+                            <th width="5%">User_ID</th>
+                            <th width="20%">題名</th>
                             <th width="30%">Todo</th>
-                            <th width="10%">登録日</th>
-                            <th width="10%">期限</th>
+                            <th width="15%">登録日</th>
+                            <th width="15%">期限</th>
                             <th width="10%">進捗</th>
-                            <th width="10%"></th>
-                            <th width="10%"></th>
+                            <th width="5%"></th>
                         </tr>
                     </thead>
                 <tbody>
@@ -95,21 +94,13 @@
                             <td>{{$task->deadline}}</td>
                             <td>{{ \Str::limit($task->status_name, 50) }}</td>
                             <td>
-                                <div>
-                                    <a href="{{ action('Admin\TaskController@edit', ['id' => $task->id]) }}">
-                                        <input type="submit" class="btn btn-primary" value="編集">
-                                    </a>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="{{ action('Admin\TaskController@delete', ['id' => $task->id]) }}">
-                                        <input type="submit" class="btn btn-danger" value="削除">
-                                    </a>
+                                <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                                     <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary" value="編集"></a>
+                                     <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger" value="削除"></a>
                                 </div>
                             </td>
                         </tr>
-                            @endforeach
+                    @endforeach
                 </tbody>
                 </table>
             </div>    
