@@ -16,9 +16,9 @@
 
                     {{ __('You are logged in!') }}
                 </div>
-                <div>
-                    <a href="{{ action('User\TaskController@add') }}">マイページへ</a>
-                </div>
+                <!--<div>-->
+                <!--    <a href="{{ action('User\TaskController@add') }}">マイページへ</a>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
