@@ -11,11 +11,12 @@
         "php": "^7.2.5|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
-        "laravelcollective/html": "^6.2"
+        "laravelcollective/html": "^6.2",
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "3.4.2",

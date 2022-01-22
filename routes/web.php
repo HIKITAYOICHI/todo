@@ -29,6 +29,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         'reset'    => false,
         'verify'   => false
     ]);
+    // Mail
+    Route::post('register', 'MailSendController@send');
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
         // TOPページ
@@ -42,7 +44,6 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
     });
-        
 });
 
 // 管理者
@@ -70,5 +71,4 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('register', 'Auth\RegisterController@register');
         
     });
-        
 });
