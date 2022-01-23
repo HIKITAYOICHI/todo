@@ -12,6 +12,8 @@ class MailSendController extends Controller
         
         $data = [];
         Mail::send('emails.new_user', $data, function($message){
+            
+            
             $message->to('testmail1234qwer@gmail.com', 'Tester')
                     ->subject('New User Login')
                     ->from('testmail1234qwer@gmail.com', 'Admin');
