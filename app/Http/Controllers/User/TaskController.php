@@ -78,6 +78,7 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
+        // メールを送信するここに処理
         
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
@@ -135,6 +136,7 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->save();
         
+        // メールの送信処理
         return redirect('user/tasks');
     }
 
