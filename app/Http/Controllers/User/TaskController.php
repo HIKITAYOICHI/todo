@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PostSent;
 
 class TaskController extends Controller
 {
@@ -77,6 +79,7 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
+        // メールを送信するここに処理
         
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
@@ -133,6 +136,11 @@ class TaskController extends Controller
         $task->fill($task_form);
         // $task->deadline = '2022-01-01';
         $task->save();
+        
+        // メールの送信処理
+        $user = Auth::user();
+        $user_email = Auth::user()->email;
+        Mail::to($user_email)->send(new PostSent($user));
         
         return redirect('user/tasks');
     }

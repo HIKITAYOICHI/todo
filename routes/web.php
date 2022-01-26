@@ -29,8 +29,9 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         'reset'    => false,
         'verify'   => false
     ]);
-    // Mail
-    Route::post('register', 'MailSendController@send');
+    // Regster_Mail
+    
+    
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
         // TOPページ
@@ -43,6 +44,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
+        // Route::post('tasks/edit', 'MailSendController@edit');
     });
 });
 
@@ -67,8 +69,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
         // vendor/laravel/ui/auth-backend/RegistersUsers.php内のアクションから参照
-        Route::get('register', 'Auth\RegisterController@register');
-        Route::get('register', 'Auth\RegisterController@register');
+        Route::get('register', 'Auth\RegisterController@register')->name('register');
+        Route::post('register', 'Auth\RegisterController@register');
         
     });
 });
