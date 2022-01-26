@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PostSent;
 
 class TaskController extends Controller
 {
@@ -137,6 +139,10 @@ class TaskController extends Controller
         $task->save();
         
         // メールの送信処理
+        $user = Auth::user();
+        $user_email = Auth::user()->email;
+        Mail::to($user_email)->send(new PostSent($user));
+        
         return redirect('user/tasks');
     }
 
