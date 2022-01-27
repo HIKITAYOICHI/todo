@@ -44,7 +44,10 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
-        // Route::post('tasks/edit', 'MailSendController@edit');
+        Route::get('tasks/show', 'TaskController@show')->name('tasks.show');
+        Route::get('tasks/commnet', 'CommentController@create')->name('tasks.comment');
+        Route::get('tasks/commnet/sotore', 'CommentController@store')->name('tasks.comment.store');
+        Route::post('tasks/commnet/sotore','CommentController@store');
     });
 });
 

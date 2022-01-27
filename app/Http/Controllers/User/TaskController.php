@@ -93,9 +93,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    //  詳細画面
+    public function show(Request $request)
     {
-        //
+        $task = Task::find(1);
+        return view('user.tasks.show', compact('task'));
     }
 
     /**

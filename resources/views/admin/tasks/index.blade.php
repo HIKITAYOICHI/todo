@@ -82,7 +82,7 @@
                             <th width="5%"></th>
                         </tr>
                     </thead>
-                <tbody>
+                    <tbody>
                     <!--絞り込み２段階-->
                     @foreach($tasks as $task)
                         <tr>
@@ -94,14 +94,15 @@
                             <td>{{$task->deadline}}</td>
                             <td>{{ \Str::limit($task->status_name, 50) }}</td>
                             <td>
-                                <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-                                     <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary" value="編集"></a>
-                                     <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger" value="削除"></a>
+                                <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                                    <a href="{{ action('User\TaskController@show', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary btn-sm" value="詳細"></a>
+                                    <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-success btn-sm" value="編集"></a>
+                                    <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger btn-sm" value="削除"></a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                    </tbody>
                 </table>
             </div>    
         </div>
