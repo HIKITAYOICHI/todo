@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PostSent;
+use App\Mail\EditSent;
 
 class TaskController extends Controller
 {
@@ -76,7 +76,6 @@ class TaskController extends Controller
         $form = $request->all();
         unset($form['_token']);
         $task->fill($form);
-        // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
@@ -135,10 +134,10 @@ class TaskController extends Controller
         // $task->deadline = '2022-01-01';
         $task->save();
         
-        // メールの送信処理
+        // Todo編集時のメール送信
         $user = Auth::user();
         $user_email = Auth::user()->email;
-        Mail::to($user_email)->send(new PostSent($user));
+        Mail::to($user_email)->send(new EditSent($user));
         
         return redirect('user/tasks');
     }
