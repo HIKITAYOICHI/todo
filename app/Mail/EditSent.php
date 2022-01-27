@@ -18,9 +18,10 @@ class EditSent extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $task)
     {
         $this->user = $user;
+        $this->task = $task;
     }
 
     /**
@@ -32,7 +33,8 @@ class EditSent extends Mailable
     {
         return $this->view('emails.edit_todo')
                     ->from('testmail1234qwer@gmail.com', 'Admin')
-                    ->subject('新規ユーザー登録の通知')
-                    ->with(['user' => $this->user]);
+                    ->subject('Todo編集の通知')
+                    ->with(['user' => $this->user])
+                    ->with(['task' => $this->task]);
     }
 }
