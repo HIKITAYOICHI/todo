@@ -18,9 +18,9 @@ class RegisterSent extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-      
+        $this->user = $user;
     }
 
     /**
@@ -32,6 +32,7 @@ class RegisterSent extends Mailable
     {
         return $this->view('emails.register_user')
                     ->from('testmail1234qwer@gmail.com', 'Admin')
-                    ->subject('新規ユーザー追加の通知');
+                    ->subject('新規ユーザー追加の通知')
+                    ->with(['user' => $this->user]);
     }
 }

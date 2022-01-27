@@ -87,7 +87,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         // 新規登録時のメール送信
-        Mail::to('testmail1234qwer@gmail.com')->send(new RegisterSent);
+        Mail::to('testmail1234qwer@gmail.com')->send(new RegisterSent($user));
         
         return $user;
     }

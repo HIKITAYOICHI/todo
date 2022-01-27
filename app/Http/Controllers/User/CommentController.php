@@ -8,25 +8,27 @@ use App\Models\Task;
 
 class CommentController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        $task = Task::find(1);
+        // idの取り出し
+        $id = $request->input('task_id');
+        $task = Task::find($id);
         return view('user.tasks.comment', compact('task'));
     }
     
-    public function store()
+    public function store(Request $request)
     {
-        // $task = new Task;
+        $task = new Task;
 
-        // $form = $request->all();
+        $form = $request->all();
 
-        // unset($form['_token']);
+        unset($form['_token']);
 
-        // $task->fill($form);
+        $task->fill($form);
 
-        // $task->user_id = $request->user()->id;
+        $task->user_id = $request->user()->id;
 
-        // $task->save();
+        $task->save();
 
 
     }

@@ -96,7 +96,9 @@ class TaskController extends Controller
     //  詳細画面
     public function show(Request $request)
     {
-        $task = Task::find(1);
+        // idの取り出し
+        $id = $request->input('id');
+        $task = Task::find($id);
         return view('user.tasks.show', compact('task'));
     }
 
