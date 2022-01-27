@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterSent;
 
 class RegisterController extends Controller
 {
@@ -84,7 +86,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        // メールを送信するここに処理
+        // 新規登録時のメール送信
+        Mail::to('testmail1234qwer@gmail.com')->send(new RegisterSent);
         
         return $user;
     }

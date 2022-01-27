@@ -9,18 +9,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PostSent extends Mailable
+class RegisterSent extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct()
     {
-        $this->user = $user;
+      
     }
 
     /**
@@ -30,9 +30,8 @@ class PostSent extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.edit_todo')
+        return $this->view('emails.register_user')
                     ->from('testmail1234qwer@gmail.com', 'Admin')
-                    ->subject('Todo編集の通知')
-                    ->with(['user' => $this->user]);
+                    ->subject('新規ユーザー追加の通知');
     }
 }
