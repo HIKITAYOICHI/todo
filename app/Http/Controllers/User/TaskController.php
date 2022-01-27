@@ -137,7 +137,7 @@ class TaskController extends Controller
         // Todo編集時のメール送信
         $user = Auth::user();
         $user_email = Auth::user()->email;
-        Mail::to($user_email)->send(new EditSent($user));
+        Mail::to($user_email)->send(new EditSent($user, $task));
         
         return redirect('user/tasks');
     }
