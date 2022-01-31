@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Task;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -45,10 +46,18 @@ class User extends Authenticatable
         
     }
     
+    // Commentモデルとの１対多でのリレーション
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+        
+    }
+    
     public function orderbytasksdesc()
     {
      return $this->hasMany('App\Models\Task')->orderBy('deadline', 'desc');
     }
+    
     public function orderbytasksasc()
     {
      return $this->hasMany('App\Models\Task')->orderBy('deadline', 'asc');

@@ -24,50 +24,25 @@ class TaskController extends Controller
         $by = isset($request->sortby) ? $request->sortby : "asc";
         if ($search_title != '') {
             // 検索されたら検索結果を取得する
-            $tasks = Task::where('title', $search_title)->get;
+            $tasks = Task::where('title', $search_title)->paginate(10);
         }
         
         else {
             if ($by == '降順'){
                 //   $by に降順が入ればdesc
-                $tasks = Task::all()->sortBydesc('deadline');
+                $tasks = Task::all()->sortBydesc('deadline')->paginate(10);
             }
             else if($by == '昇順'){
                 //   $by に昇順が入ればasc
-                $tasks = Task::all()->sortBy('deadline');
+                $tasks = Task::all()->sortBy('deadline')->paginate(10);
             }
             else {
                 // それ以外は全件取得
-                $tasks = Task::all();
+                $tasks = Task::all()->paginate(10);
             }
         }
         return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
     }    
-    //   $search_title = $request->search_title;
-    //   $by = isset($request->sortby) ? $request->sortby : "asc";
-      
-    //   if ($search_title != '') {
-    //       //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
-    //       $tasks = Auth::user()->tasks->where('title', $search_title);
-    //     //   $tasks = Task::where('title', $search_title)->get();
-    //   } 
-    //   else {
-       
-    //   if ($by == '降順'){
-    //     //   $by に降順が入ればdesc
-    //       $tasks = Auth::user()->orderbytasksdesc;
-    //   }
-    //   else if($by == '昇順'){
-    //   //   $by に昇順が入ればasc
-    //       $tasks = Auth::user()->orderbytasksasc;
-    //   }
-    //   else{
-    //       //   入ってなければ全件取得
-    //       $tasks=Auth::user()->tasks;
-    //     //   $tasks=Task::all();
-    //   }
-    //   }
-    //   return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
     
     /**
      * Show the form for creating a new resource.
@@ -86,11 +61,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // session()->flash('flash_message', '投稿が完了しました');
-        echo "完了";
-        
-        // データベースに登録できる処理入れる
-        //mysqlでデータベースに保存されてるか確認
+        // データベースに保存
         $task = new Task;
         $form = $request->all();
         unset($form['_token']);
@@ -111,9 +82,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        
+        // idの取り出し
+        $id = $request->input('id');
+        $task = Task::find($id);
+        
+        return view('admin.tasks.show', compact('task'));
     }
 
     /**

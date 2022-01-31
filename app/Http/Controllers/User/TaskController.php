@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EditSent;
@@ -31,21 +33,21 @@ class TaskController extends Controller
           
         if ($search_title != '') {
               //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
-              $tasks = Auth::user()->tasks->where('title', $search_title);
+              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(10);
             //   $tasks = Task::where('title', $search_title)->get();
         } 
         else {
             if ($by == '降順'){
                  //   $by に降順が入ればdesc
-                 $tasks = Auth::user()->orderbytasksdesc;
+                 $tasks = Auth::user()->orderbytasksdesc->paginate(10);   
             }
             else if($by == '昇順'){
                  //   $by に昇順が入ればasc
-                 $tasks = Auth::user()->orderbytasksasc;
+                 $tasks = Auth::user()->orderbytasksasc->paginate(10);   
             }
             else{
                  //   入ってなければ全件取得
-                 $tasks=Auth::user()->tasks;   
+                 $tasks=Auth::user()->tasks->paginate(10);   
             }
         }
        return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
@@ -67,11 +69,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // session()->flash('flash_message', '投稿が完了しました');
-        echo "完了";
-        
-        // データベースに登録できる処理入れる
-        //mysqlでデータベースに保存されてるか確認
+        // データベースに保存
         $task = new Task;
         $form = $request->all();
         unset($form['_token']);
@@ -96,9 +94,11 @@ class TaskController extends Controller
     //  詳細画面
     public function show(Request $request)
     {
+        
         // idの取り出し
         $id = $request->input('id');
         $task = Task::find($id);
+        
         return view('user.tasks.show', compact('task'));
     }
 
@@ -154,12 +154,13 @@ class TaskController extends Controller
      */
     public function delete(Request $request)
     {
+            
         // Modelからデータの取得
-      $task = Task::find($request->id);
-      // 削除
-      $task->delete();
-      //戻る処理　
-      return redirect('user/tasks');
+        $task = Task::find($request->id);
+        // 削除
+        $task->delete();
+        //戻る処理　
+        return redirect('user/tasks');
         
     }
 }
