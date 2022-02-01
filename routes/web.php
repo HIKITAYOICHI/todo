@@ -29,9 +29,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         'reset'    => false,
         'verify'   => false
     ]);
-    // Regster_Mail
-    
-    
+
     // ログイン認証後
     Route::middleware('auth:user')->group(function () {
         // TOPページ
@@ -44,7 +42,11 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
-        // Route::post('tasks/edit', 'MailSendController@edit');
+        Route::get('tasks/show/{id}', 'TaskController@show');
+        Route::get('tasks/store', 'CommentController@store')->name('tasks.store');
+        Route::post('tasks/store','CommentController@store');
+        Route::get('tasks/show/delete/{id}', 'CommentController@delete');
+        Route::post('tasks/show/delete/{id}', 'CommentController@delete');
     });
 });
 
@@ -68,6 +70,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
+        Route::get('tasks/show/{id}', 'TaskController@show');
+        Route::get('tasks/store', 'CommentController@store')->name('tasks.store');
+        Route::post('tasks/store','CommentController@store');
+        Route::get('tasks/show/delete/{id}', 'CommentController@delete');
+        Route::post('tasks/show/delete/{id}', 'CommentController@delete');
         // vendor/laravel/ui/auth-backend/RegistersUsers.php内のアクションから参照
         Route::get('register', 'Auth\RegisterController@register')->name('register');
         Route::post('register', 'Auth\RegisterController@register');

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Comment;
 
 class Task extends Model
 {
@@ -24,4 +25,10 @@ class Task extends Model
     return $this->belongsTo('App\Models\Admin');
     }
     
+    // Commentモデルとの１対多でのリレーション
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+        
+    }
 }
