@@ -26,21 +26,18 @@ class CommentController extends Controller
         $task = Task::find($id);
         
         // return redirect('user/tasks/show',)->with("task_id",$request->task_id);
-        return redirect('user/tasks/show?id='.$request->task_id);
+        return redirect('user/tasks/show/'.$request->task_id);
     }
     
      public function delete(Request $request)
     {
-        // $id = $request->input('comment_id');
-        // $comment = Comment::find($id);
-       // Modelからデータの取得
+        // Modelからデータの取得
         $comment = Comment::find($request->id);
+        $task_id = $comment->task->id;
         // 削除
         $comment->delete();
         //戻る処理　
-        return redirect('user/tasks/show?id='.$request->task_id);
+        return redirect('user/tasks/show/'.$task_id);
         
     }
 }
-
-// $comments = App\Models\Comment::paginate(10);

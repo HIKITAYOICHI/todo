@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -82,14 +84,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
         
         // idの取り出し
-        $id = $request->input('id');
+        // $id = $request->input('id');
         $task = Task::find($id);
         
-        return view('admin.tasks.show', compact('task'));
+        return view('user.tasks.show', compact('task'));
     }
 
     /**

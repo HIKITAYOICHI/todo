@@ -92,11 +92,11 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     //  詳細画面
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
         
         // idの取り出し
-        $id = $request->input('id');
+        // $id = $request->input('id');
         $task = Task::find($id);
         
         return view('user.tasks.show', compact('task'));

@@ -54,7 +54,7 @@
                         <div class="input-group col-md-12">
                             <form action="{{ action('User\TaskController@index') }}" method="get">
                                 <input type="text" class="form-control input-lg" style="position: relative; right: -30px;" placeholder="" name="search_title" value="{{ $search_title }}">
-                                <span class="input-group-btn" style="position: relative;top: -37px;right: -190px;">
+                                <span class="input-group-btn" style="position: relative;top: -37px;right: -210px;">
                                     {{ csrf_field() }}
                                     <button class="btn btn-info" type="submit">
                                         <i class="fas fa-search"></i>
@@ -64,14 +64,14 @@
                         </div>
                     </div>
                 </div>
-            	<div style="position: relative; right: -280px; bottom: -110px;">
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 offset-md-9">
                     <label>Todoリスト並び替え</lavel>
                     <a href="{{ action('User\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
                     <a href="{{ action('User\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
                 </div>
-            </div>
-            
-            <div class="row" style="position: relative;top: -20px;">
                 <div class="col-md-11 mx-auto">
                     <table class="table table-reflow">
                         <thead class="thead-light">
@@ -102,9 +102,9 @@
                                 </td>
                             </tr>
                         @endforeach
-                        {{ $tasks->links() }}
                         </tbody>
                     </table>
+                    {{ $tasks->links() }}
                 </div>    
             </div>
         </div>

@@ -41,13 +41,12 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::get('tasks/edit', 'TaskController@edit');
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
-        Route::get('tasks/show/delete', 'CommentController@delete')->name('tasks.show.delete');
-        // Route::post('tasks/show/delete', 'CommentController@delete')->name('tasks.show.delete');
-        // Route::delete('tasks/show/delete', 'CommentController@delete')->name('tasks.show.delete');
         Route::get('tasks', 'TaskController@index');
-        Route::get('tasks/show', 'TaskController@show')->name('tasks.show');
+        Route::get('tasks/show/{id}', 'TaskController@show');
         Route::get('tasks/store', 'CommentController@store')->name('tasks.store');
         Route::post('tasks/store','CommentController@store');
+        Route::get('tasks/show/delete/{id}', 'CommentController@delete');
+        Route::post('tasks/show/delete/{id}', 'CommentController@delete');
     });
 });
 
@@ -71,9 +70,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');
         Route::get('tasks', 'TaskController@index');
-        Route::get('tasks/show', 'TaskController@show')->name('tasks.show');
+        Route::get('tasks/show/{id}', 'TaskController@show');
         Route::get('tasks/store', 'CommentController@store')->name('tasks.store');
         Route::post('tasks/store','CommentController@store');
+        Route::get('tasks/show/delete/{id}', 'CommentController@delete');
+        Route::post('tasks/show/delete/{id}', 'CommentController@delete');
         // vendor/laravel/ui/auth-backend/RegistersUsers.php内のアクションから参照
         Route::get('register', 'Auth\RegisterController@register')->name('register');
         Route::post('register', 'Auth\RegisterController@register');
