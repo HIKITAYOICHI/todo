@@ -26,6 +26,19 @@
                              <label class="formGroupExampleInput2"for="body">Todo</label>
                              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Todoを登録して下さい" name="body" value="{{ old('body') }}">
                         </div>
+                        画像投稿フォーム
+                        <!--<label for="image">画像</label>-->
+                        <!--<div class="form-group">-->
+                        <!--    <input type="file" id="file" name="image" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <input type="file" id="image1" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
+                            <input type="file" id="image2" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
+                            <input type="file" id="image3" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
+                        </div>
+                        
+                        {{ csrf_field() }}
+
                         <!--下記日付の登録フォーム-->
                         <div class="form-group">
                             <div class="text-right">

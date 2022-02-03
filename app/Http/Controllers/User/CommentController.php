@@ -24,8 +24,9 @@ class CommentController extends Controller
         $comment->save();
         $id = $request->input('task_id');
         $task = Task::find($id);
+        // dd($comment);
         
-        // return redirect('user/tasks/show',)->with("task_id",$request->task_id);
+        // return redirect('user/tasks/show')->with("task_id", $request->task_id);
         return redirect('user/tasks/show/'.$request->task_id);
     }
     

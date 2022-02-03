@@ -32,35 +32,12 @@
                         </tbody>
                     </thead>
                 </table>
-            </div>    
+            </div>
+            <h class= "card-title">画像</h>
+            <img src="{{ asset('storage/image/'. $task->image) }}" width="100" height="100">
         </div>
     </div>
-    <div class="card-body">
-        <h class= "card-title">コメント投稿</h>
-        <div class="card">
-            <div class="col-md-11 mx-auto">
-                @if (count($errors) > 0)
-                    <ul>
-                        @foreach($errors->all() as $e)
-                            <li>{{ $e }}</li>
-                        @endforeach
-                    </ul>
-                    @endif
-                    <form action="{{ action('Admin\CommentController@store') }}" method="post">
-            　　　　        <div class="form-group">
-                            <label for="Comment"></label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="commentを入力して下さい" name="comment">
-                        </div>
-                        {{ csrf_field() }}
-                        <div class="text-right">
-                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                            <input type="hidden" name="task_id" value="{{ $task->id }}">
-                            <input type="submit" class="btn btn-primary" value="投稿" style="position: relative; top: -10px;">
-                        </div>
-                    </form>
-            </div>
-        </div>    
-    </div>
+    
     <div class= "p-3">
     <h class= "card-title">コメント一覧</h>
         @foreach($task->comments->paginate(10) as $comment)
