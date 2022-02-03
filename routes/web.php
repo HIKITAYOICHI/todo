@@ -65,7 +65,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('home', 'HomeController@index')->name('home');
         Route::get('tasks','TaskController@add');
         Route::get('tasks/create','TaskController@add');
-        Route::post('tasks/create','TaskController@store');
+        Route::post('tasks/create{id}','TaskController@store');
         Route::get('tasks/edit', 'TaskController@edit');
         Route::post('tasks/edit', 'TaskController@update');
         Route::get('tasks/delete', 'TaskController@delete');

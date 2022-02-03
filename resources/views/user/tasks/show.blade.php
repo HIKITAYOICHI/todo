@@ -30,9 +30,24 @@
                         </tbody>
                     </thead>
                 </table>
-            </div>    
+            </div>
+            <!--<div class="col-md-3 mx-auto">-->
+            <!--    <h class= "card-title">画像</h>-->
+            <!--    <img src="{{ asset('storage/image/'. $task->image) }}" width="100" height="100">-->
+            <!--</div>-->
+            <h class= "card-title">画像1</h>
+            <div class="col-md-3">
+                <img src="{{ asset('storage/image/'. $task->image1) }}" width="100" height="100">
+            </div>
+            <h class= "card-title">画像2</h>
+            <div class="col-md-3">
+                <img src="{{ asset('storage/image/'. $task->image2) }}" width="100" height="100">
+            </div>
+            <h class= "card-title">画像3</h>
+            <div class="col-md-3">
+                <img src="{{ asset('storage/image/'. $task->image3) }}" width="100" height="100">
+            </div>
         </div>
-    </div>
 
     <div class="card-body">
         <h class= "card-title">コメント投稿</h>

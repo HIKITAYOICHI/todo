@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Image;
+use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EditSent;
@@ -67,19 +70,50 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
         // データベースに保存
         $task = new Task;
-        $form = $request->all();
-        unset($form['_token']);
+        $form = $request->except(["image", "_token"]);
+        // $form = $request->only(['username', 'password']);
+       
+        
         $task->fill($form);
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        return redirect('user/tasks');
+        //画像の保存
+        // if (isset($form['image'])) {
+            
+        //     $path = $request->file('image')->store('public/image');
+        //     $task->image = basename($path);
+        // } else {
+        //     $task->image = null;
+        // }
         
+        $image = new Image;
+        
+        $files = $request->file('image');
+        // dd($images);
+
+        foreach($files as $file){
+            
+        	$file->store('public/image');
+        	//ファイルのパスの名前の保存
+            $image->name = basename($image);
+            // 何のタスクのか
+            // dd($images);
+            
+            $image->task_id = $task->id;
+            // $image->task_id = Task::select('id')->get();
+            // dd($image);
+            $image->save();
+        
+        } 
+        
+        
+        return redirect('user/tasks/');
         
         //select * from taskmanagement.tasks;
 
@@ -113,7 +147,8 @@ class TaskController extends Controller
         
         // Modelからデータの取得
         $task = Task::find($request->id);
-        // $task->status_id = 0;
+        // $taskに前カラム入ってる
+        
       
         return view('user.tasks.edit', ['task_form' => $task]);
     }
@@ -125,7 +160,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(TaskEditRequest $request)
     {
         
         // Modelからデータの取得

@@ -9,10 +9,14 @@ use App\Models\Comment;
 
 class Task extends Model
 {
-   protected $guarded = array('id');
-   public static $rules = array(
+    protected $guarded = array('id');
+    
+    protected $fillable = ['user_id','title','body', 'status_name', 'deadline', 'image'];
+   
+    public static $rules = array(
        'body' => 'required', 
        );
+       
     // Userモデルとの多対１でのリレーション
     public function user()
     {
@@ -29,6 +33,13 @@ class Task extends Model
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
+        
+    }
+    
+    // Imageモデルとの１対多でのリレーション
+    public function images()
+    {
+        return $this->hasMany('App\Models\Image');
         
     }
 }

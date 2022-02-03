@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Comment;
+use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskEditRequest;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -61,7 +63,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
         // データベースに保存
         $task = new Task;
@@ -91,7 +93,7 @@ class TaskController extends Controller
         // $id = $request->input('id');
         $task = Task::find($id);
         
-        return view('user.tasks.show', compact('task'));
+        return view('admin.tasks.show', compact('task'));
     }
 
     /**
@@ -117,7 +119,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(TaskEditRequest $request)
     {
         
         // Modelからデータの取得
