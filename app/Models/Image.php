@@ -7,7 +7,7 @@ use App\Models\Task;
 
 class Image extends Model
 {
-    
+    protected $fillable = ['name'];
     // Taskモデルとの多対１でのリレーション
     public function task()
     {

@@ -72,46 +72,31 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        // データベースに保存
-        $task = new Task;
+        // taskをデータベースに保存
+        $task = new Task;   
         $form = $request->except(["image", "_token"]);
-        // $form = $request->only(['username', 'password']);
-       
-        
         $task->fill($form);
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
+        
         //画像の保存
-        // if (isset($form['image'])) {
-            
-        //     $path = $request->file('image')->store('public/image');
-        //     $task->image = basename($path);
-        // } else {
-        //     $task->image = null;
-        // }
-        
-        $image = new Image;
-        
+        // $image = new Image;
         $files = $request->file('image');
-        // dd($images);
+        
+        // dd($files);
 
         foreach($files as $file){
-            
+            $image = new Image;
+            $image->name = $file->getClientOriginalName();
         	$file->store('public/image');
-        	//ファイルのパスの名前の保存
-            $image->name = basename($image);
-            // 何のタスクのか
-            // dd($images);
+        	$image->task_id = $task->id;
             
-            $image->task_id = $task->id;
-            // $image->task_id = Task::select('id')->get();
-            // dd($image);
             $image->save();
         
         } 
-        
+        // dd($image);
         
         return redirect('user/tasks/');
         
