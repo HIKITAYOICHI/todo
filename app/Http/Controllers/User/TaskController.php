@@ -84,13 +84,17 @@ class TaskController extends Controller
         //画像の保存
         // $image = new Image;
         $files = $request->file('image');
-        
         // dd($files);
+        
+        // $path = $request->file('image')->store('public/image');
+        // $image->name = basename($path);　
 
         foreach($files as $file){
             $image = new Image;
-            $image->name = $file->getClientOriginalName();
-        	$file->store('public/image');
+            // $image->name = $file->getClientOriginalName();
+            $path = $file->store('public/image');
+            $image->name = basename($path);
+            // 	$file->store('public/image');
         	$image->task_id = $task->id;
             
             $image->save();
