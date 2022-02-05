@@ -38,11 +38,10 @@
             <div class="row">
             @foreach($task->images as $task_image)
                 
-                <div class="col-3 offset-1" >
+                <div class="col offset-1" >
                 
-                    <!--<img src="{{ asset('storage/image/'. $task_image->name) }}" width="150" height="150">-->
                     <img src="{{ $task_image->name }}" width="150" height="150">
-                    
+    
                 </div>
                
             @endforeach

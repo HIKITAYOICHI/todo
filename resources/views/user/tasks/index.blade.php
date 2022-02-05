@@ -28,7 +28,7 @@
                         </div>
                         画像投稿フォーム
                         <div class="form-group">
-                            <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple>
+                            <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">
                         </div>
                         {{ csrf_field() }}
 
