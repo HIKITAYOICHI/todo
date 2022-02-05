@@ -27,24 +27,17 @@
                              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Todoを登録して下さい" name="body" value="{{ old('body') }}">
                         </div>
                         画像投稿フォーム
-                        <!--<label for="image">画像</label>-->
-                        <!--<div class="form-group">-->
-                        <!--    <input type="file" id="file" name="image" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple>-->
-                        <!--</div>-->
                         <div class="form-group">
-                            <input type="file" id="image1" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
-                            <input type="file" id="image2" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
-                            <input type="file" id="image3" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc">
+                            <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple>
                         </div>
-                        
                         {{ csrf_field() }}
 
                         <!--下記日付の登録フォーム-->
-                        <div class="form-group">
-                            <div class="text-right">
+                        <div class="form-group text-right">
+                            <!--<div class="text-right">-->
                                 <label for="deadline">期限入力<lavel>
                                 <input type="date" name="deadline">
-                            </div>
+                            <!--</div>-->
                         </div>
                         <!--下記status_nameのデフォルト値の入力-->
                         <input type="hidden" name="status_name" value="未着">

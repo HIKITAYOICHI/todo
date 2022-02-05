@@ -11,7 +11,7 @@ class Task extends Model
 {
     protected $guarded = array('id');
     
-    protected $fillable = ['user_id','title','body', 'status_name', 'deadline', 'image'];
+    protected $fillable = ['user_id','title','body', 'status_name', 'deadline'];
    
     public static $rules = array(
        'body' => 'required', 

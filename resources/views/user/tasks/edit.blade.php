@@ -27,11 +27,9 @@
                             <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="todoを入力して下さい" name="body" value="{{ old('body', $task_form->body) }}">
                         </div>
                         <!--画像投稿フォーム-->
+                        画像投稿フォーム
                         <div class="form-group">
-                            <div class="mb-3">
-                                <label for="formFile" class="form-label">画像</label>
-                                <input class="form-control" type="file" id="formFile" name="image" value="{{ old('image') }}">
-                            </div>
+                            <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple>
                         </div>
                         {{ csrf_field() }}
                         <!--下記deadlineの送信-->
