@@ -13,6 +13,7 @@ use App\Http\Requests\TaskEditRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EditSent;
+use Storage;
 
 class TaskController extends Controller
 {
@@ -35,9 +36,8 @@ class TaskController extends Controller
         $by = isset($request->sortby) ? $request->sortby : "asc";
           
         if ($search_title != '') {
-              //   ユーザー情報持ってきて　関連するユーザーのタスク持ってきて　その中からさらにタイトルで絞り込み
+              //   ユーザー情報取得　関連するユーザーのタスク取得　タイトルで絞り込み
               $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(10);
-            //   $tasks = Task::where('title', $search_title)->get();
         } 
         else {
             if ($by == '降順'){
@@ -79,33 +79,20 @@ class TaskController extends Controller
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
-        
-        
         //画像の保存
-        // $image = new Image;
         $files = $request->file('image');
-        // dd($files);
-        
-        // $path = $request->file('image')->store('public/image');
-        // $image->name = basename($path);　
-
         foreach($files as $file){
             $image = new Image;
-            // $image->name = $file->getClientOriginalName();
-            $path = $file->store('public/image');
-            $image->name = basename($path);
-            // 	$file->store('public/image');
-        	$image->task_id = $task->id;
+            // $path = $file->store('public/image');
+            // $image->name = basename($path);
             
+            $path = Storage::disk('s3')->putFile('/', $file, 'public');
+            $image->name = Storage::disk('s3')->url($path);
+            
+        	$image->task_id = $task->id;
             $image->save();
-        
         } 
-        // dd($image);
-        
         return redirect('user/tasks/');
-        
-        //select * from taskmanagement.tasks;
-
     }
 
     /**
@@ -117,9 +104,7 @@ class TaskController extends Controller
     //  詳細画面
     public function show(Request $request, $id)
     {
-        
-        // idの取り出し
-        // $id = $request->input('id');
+        // idの取得
         $task = Task::find($id);
         
         return view('user.tasks.show', compact('task'));
@@ -134,11 +119,9 @@ class TaskController extends Controller
     public function edit(Request $request)
     {
         
-        // Modelからデータの取得
+        // データの取得
         $task = Task::find($request->id);
-        // $taskに前カラム入ってる
         
-      
         return view('user.tasks.edit', ['task_form' => $task]);
     }
 
@@ -152,23 +135,33 @@ class TaskController extends Controller
     public function update(TaskEditRequest $request)
     {
         
-        // Modelからデータの取得
+        // データの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
         $task_form = $request->all();
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
-        // $task->deadline = '2022-01-01';
         $task->save();
-        
         // Todo編集時のメール送信
         $user = Auth::user();
         $user_email = Auth::user()->email;
         Mail::to($user_email)->send(new EditSent($user, $task));
+        //画像の保存
+        $files = $request->file('image');
+        foreach($files as $file){
+            $image = new Image;
+            // $path = $file->store('public/image');
+            // $image->name = basename($path);
+            $path = Storage::disk('s3')->putFile('/', $file, 'public');
+            $image->name = Storage::disk('s3')->url($path);
+            
+        	$image->task_id = $task->id;
+            $image->save();
         
         return redirect('user/tasks');
     }
+}    
 
     /**
      * Remove the specified resource from storage.
@@ -178,13 +171,11 @@ class TaskController extends Controller
      */
     public function delete(Request $request)
     {
-            
-        // Modelからデータの取得
+        // データの取得
         $task = Task::find($request->id);
         // 削除
         $task->delete();
         //戻る処理　
         return redirect('user/tasks');
-        
     }
 }

@@ -33,20 +33,21 @@
             </div>
             
             <div class="col-md-4">
-                <h class= "card-title">画像</h>
+                <h class= "card-title offset-1">画像一覧</h>
             </div>
+            <div class="row">
             @foreach($task->images as $task_image)
-            <!--@php-->
-            <!--  dump($task_image);-->
-            <!--@endphp-->
-                <div class="col-md-4">
-                    <img src="{{ asset('storage/image/'. $task_image->name) }}" width="100" height="100">
-                </div>
                 
+                <div class="col-3 offset-1" >
+                
+                    <!--<img src="{{ asset('storage/image/'. $task_image->name) }}" width="150" height="150">-->
+                    <img src="{{ $task_image->name }}" width="150" height="150">
+                    
+                </div>
+               
             @endforeach
-            
+            </div>
         </div>
-
     <div class="card-body">
         <h class= "card-title">コメント投稿</h>
         <div class="card">
