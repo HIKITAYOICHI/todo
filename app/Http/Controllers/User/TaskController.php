@@ -37,20 +37,20 @@ class TaskController extends Controller
           
         if ($search_title != '') {
               //   ユーザー情報取得　関連するユーザーのタスク取得　タイトルで絞り込み
-              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(10);
+              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(5);
         } 
         else {
             if ($by == '降順'){
                  //   $by に降順が入ればdesc
-                 $tasks = Auth::user()->orderbytasksdesc->paginate(10);   
+                 $tasks = Auth::user()->orderbytasksdesc->paginate(5);   
             }
             else if($by == '昇順'){
                  //   $by に昇順が入ればasc
-                 $tasks = Auth::user()->orderbytasksasc->paginate(10);   
+                 $tasks = Auth::user()->orderbytasksasc->paginate(5);   
             }
             else{
                  //   入ってなければ全件取得
-                 $tasks=Auth::user()->tasks->paginate(10);   
+                 $tasks=Auth::user()->tasks->paginate(5);   
             }
         }
        return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);

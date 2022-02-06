@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Image;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskEditRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EditSent;
+use Storage;
 
 class TaskController extends Controller
 {
@@ -26,6 +30,7 @@ class TaskController extends Controller
     {
         $search_title = $request->search_title;
         $by = isset($request->sortby) ? $request->sortby : "asc";
+        
         if ($search_title != '') {
             // 検索されたら検索結果を取得する
             $tasks = Task::where('title', $search_title)->paginate(10);
@@ -75,6 +80,25 @@ class TaskController extends Controller
         $task->save();
         
         $tasks = Task::orderBy('deadline', 'desc')->get();
+        
+        //画像の保存
+        $files = $request->file('image');
+        // dd($files);
+        if (isset($files)) {    
+            foreach($files as $file){
+                $image = new Image;
+                // $path = $file->store('public/image');
+                // $image->name = basename($path);
+                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $image->name = Storage::disk('s3')->url($path);
+                // dd($file);
+            	$image->task_id = $task->id;
+                $image->save();
+            }
+        } else {
+            $image = null;
+            // dd($image);
+        }
         
         return redirect('admin/tasks');
         //select * from taskmanagement.tasks;
@@ -131,6 +155,25 @@ class TaskController extends Controller
         $task->fill($task_form);
         // $task->deadline = '2022-01-01';
         $task->save();
+        
+        //画像の保存
+        $files = $request->file('image');
+        // dd($files);
+        if (isset($files)) {    
+            foreach($files as $file){
+                $image = new Image;
+                // $path = $file->store('public/image');
+                // $image->name = basename($path);
+                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $image->name = Storage::disk('s3')->url($path);
+                // dd($file);
+            	$image->task_id = $task->id;
+                $image->save();
+            }
+        } else {
+            $image = null;
+            // dd($image);
+        }
         
         return redirect('admin/tasks');
     }
