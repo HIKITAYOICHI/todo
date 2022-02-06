@@ -9,40 +9,34 @@
         <div class="col-md-10 mx-auto">
             <h2>Task管理ツール(Admin)</h2>
             <div class="card">
-                <div class="card-header" style="line-height: 1;">
-                    <div class="card-title" style="font-size: 20px;">全ユーザーリスト一覧</div>
+                <div class="card-header" style="height: 40px;">
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">全ユーザーリスト一覧</div>
                 </div>
-                <div class="card-body">
-                    <div class="row" style="margin: 0px;">
-                        <div class="col-md-2 px-0" style="bottom: -6px;">
-                            <h5>リスト検索</h5>
-                        </div> 
-                        <div class="col-md-4 px-0">
-                            <div id="custom-search-input">
-                                <div class="input-group">
-                                    <form action="{{ action('Admin\TaskController@index') }}" method="get">
-                                        <input type="text" class="form-control input-lg" placeholder="" name="search_title" value="{{ $search_title }}">
-                                        <span class="input-group-btn" style="position: relative;top: -37px;right: -210px;">
-                                            {{ csrf_field() }}
-                                            <button class="btn btn-info" type="submit" style="position: relative; right: 30px;">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </form>
-                                </div>
-                            </div>
+                <div class="card-body" style="padding: 1.0rem;">
+                    <div class="row">
+                        <div class="col-md-9 align-self-end">
+                            リスト並び替え
+                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
+                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
                         </div>
-                    </div>
-                    <h6>リスト並び替え
-                        <a href="{{ action('Admin\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
-                        <a href="{{ action('Admin\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
-                    </h6>
-                    <table class="table table-bordered">
+                        <div class="col-md-3">
+                            <form action="{{ action('Admin\TaskController@index') }}" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Taskの検索" name="search_title" value="{{ $search_title }}">
+                                    <span class="input-group-btn">
+                                        {{ csrf_field() }}
+                                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
+                    <table class="table table-bordered mt-1">
                         <thead class="thead-light">
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="5%">Name</th>
-                                <th width="20%">題名</th>
+                                <th width="5%">名前</th>
+                                <th width="20%">タイトル</th>
                                 <th width="30%">Todo</th>
                                 <th width="15%">登録日</th>
                                 <th width="15%">期限</th>
@@ -73,9 +67,12 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $tasks->links() }}
+                    <div class="d-flex justify-content-center">
+                         {{ $tasks->links() }}
+                    </div>
                 </div>    
             </div>
         </div>
     </div>
+</div>
 @endsection
