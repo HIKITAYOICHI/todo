@@ -7,14 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Image;
 use App\Http\Requests\TaskRequest;
 use App\Http\Requests\TaskEditRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EditSent;
+use Storage;
 
 class TaskController extends Controller
 {
     public function add()
     {
+        // $tasks = Task::where('user_id', Auth::user()->id) ⇦のコマンドでも動くがリレーションをしてるので
+        // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
+        // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
+        // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
         return redirect('admin/tasks');
     }
     /**
@@ -26,28 +34,27 @@ class TaskController extends Controller
     {
         $search_title = $request->search_title;
         $by = isset($request->sortby) ? $request->sortby : "asc";
+          
         if ($search_title != '') {
-            // 検索されたら検索結果を取得する
-            $tasks = Task::where('title', $search_title)->paginate(10);
-        }
-        
+              //   ユーザー情報取得　関連するユーザーのタスク取得　タイトルで絞り込み
+              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(7);
+        } 
         else {
             if ($by == '降順'){
-                //   $by に降順が入ればdesc
-                $tasks = Task::all()->sortBydesc('deadline')->paginate(10);
+                 //   $by に降順が入ればdesc
+                 $tasks = Auth::user()->orderbytasksdesc->paginate(7);   
             }
             else if($by == '昇順'){
-                //   $by に昇順が入ればasc
-                $tasks = Task::all()->sortBy('deadline')->paginate(10);
+                 //   $by に昇順が入ればasc
+                 $tasks = Auth::user()->orderbytasksasc->paginate(7);   
             }
-            else {
-                // それ以外は全件取得
-                $tasks = Task::all()->paginate(10);
+            else{
+                 //   入ってなければ全件取得
+                 $tasks=Auth::user()->tasks->paginate(7);   
             }
         }
-        return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
-    }    
-    
+       return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -65,19 +72,33 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        // データベースに保存
-        $task = new Task;
-        $form = $request->all();
-        unset($form['_token']);
+        // taskをデータベースに保存
+        $task = new Task;   
+        $form = $request->except(["image", "_token"]);
         $task->fill($form);
-        // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
-        
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        return redirect('admin/tasks');
-        //select * from taskmanagement.tasks;
+        //画像の保存
+        $files = $request->file('image');
+        // dd($files);
+        if (isset($files)) {    
+            foreach($files as $file){
+                $image = new Image;
+                // $path = $file->store('public/image');
+                // $image->name = basename($path);
+                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $image->name = Storage::disk('s3')->url($path);
+                // dd($file);
+            	$image->task_id = $task->id;
+                $image->save();
+            }
+        } else {
+            $image = null;
+            // dd($image);
+        }
+        return redirect('admin/tasks/');
     }
 
     /**
@@ -86,11 +107,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //  詳細画面
     public function show(Request $request, $id)
     {
-        
-        // idの取り出し
-        // $id = $request->input('id');
+        // idの取得
         $task = Task::find($id);
         
         return view('admin.tasks.show', compact('task'));
@@ -105,10 +125,9 @@ class TaskController extends Controller
     public function edit(Request $request)
     {
         
-        // Modelからデータの取得
+        // データの取得
         $task = Task::find($request->id);
-        // $task->status_id = 0;
-      
+        
         return view('admin.tasks.edit', ['task_form' => $task]);
     }
 
@@ -122,18 +141,41 @@ class TaskController extends Controller
     public function update(TaskEditRequest $request)
     {
         
-        // Modelからデータの取得
+        // データの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
         $task_form = $request->all();
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
-        // $task->deadline = '2022-01-01';
         $task->save();
+        // Todo編集時のメール送信
+        $user = Auth::user();
+        $user_email = Auth::user()->email;
+        Mail::to($user_email)->send(new EditSent($user, $task));
         
-        return redirect('admin/tasks');
+        //画像の保存
+        $files = $request->file('image');
+        // dd($files);
+        if (isset($files)) {    
+            foreach($files as $file){
+                $image = new Image;
+                // $path = $file->store('public/image');
+                // $image->name = basename($path);
+                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $image->name = Storage::disk('s3')->url($path);
+                // dd($file);
+            	$image->task_id = $task->id;
+                $image->save();
+            }
+        } else {
+            $image = null;
+            // dd($image);
+        }
+        return redirect('admin/tasks/');
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -143,12 +185,11 @@ class TaskController extends Controller
      */
     public function delete(Request $request)
     {
-        // Modelからデータの取得
-      $task = Task::find($request->id);
-      // 削除
-      $task->delete();
-      //戻る処理　
-      return redirect('admin/tasks');
-        
+        // データの取得
+        $task = Task::find($request->id);
+        // 削除
+        $task->delete();
+        //戻る処理　
+        return redirect('admin/tasks');
     }
 }

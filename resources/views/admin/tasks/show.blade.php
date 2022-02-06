@@ -9,7 +9,7 @@
         <h class= "card-title">Todo詳細</h>
         <div class="card">
             <div class="col-md-11 mx-auto">
-                <table class="table table-reflow" style="position: relative; bottom: -15px;">
+                <table class="table table-bordered" style="position: relative; bottom: -15px;">
                     <thead class="thead-light">
                         <tr>
                             <th width="15%">ユーザー</th>
@@ -40,7 +40,7 @@
     
     <div class= "p-3">
     <h class= "card-title">コメント一覧</h>
-        @foreach($task->comments->paginate(10) as $comment)
+        @foreach($task->comments->paginate(7) as $comment)
         <div class = 'card'>
             <div class= "card-body">
                 <p class="card-text">{{ $comment->comment }}</p>
