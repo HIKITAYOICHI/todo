@@ -12,7 +12,7 @@
                 <div class="card-header" style="height: 40px;">
                     <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">リスト一覧</div>
                 </div>
-                <div class="card-body" style="padding: 1.0rem;">
+                <div class="card-body" style="padding: 1rem;">
                     <div class="row">
                         <div class="col-md-9 align-self-end">
                             リスト並び替え:

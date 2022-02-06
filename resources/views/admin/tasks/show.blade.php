@@ -9,17 +9,17 @@
         <div class="col-md-10 mx-auto">
             <h2>Task管理ツール-詳細画面(Admin)</h2>
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title" style="font-size: 20px;">Todo詳細</div>
+                <div class="card-header" style="height: 40px;">
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task詳細</div>
                 </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
+                <div class="card-body" style="padding: 1rem;">
+                    <table class="table table-bordered mt-1">
                         <thead class="thead-light">
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="5%">Name</th>
-                                <th width="20%">題名</th>
-                                <th width="30%">Todo</th>
+                                <th width="5%">名前</th>
+                                <th width="20%">タイトル</th>
+                                <th width="30%">Task</th>
                                 <th width="15%">登録日</th>
                                 <th width="15%">期限</th>
                                 <th width="15%">進捗</th>
@@ -39,7 +39,7 @@
                         </thead>
                     </table>
                     <div class="card mt-3">
-                        <div class="card-body" style="line-height: 0.3;">
+                        <div class="card-body">
                             <h6>登録画像一覧</h6>
                             <div class="row">
                             @foreach($task->images as $task_image)
@@ -55,22 +55,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-10 mx-auto">
+        <div class="col-md-10 mx-auto">
             <div class="card mt-3">
-                <div class="card-header">
-                    <div class="card-title" style="font-size: 20px;">コメント一覧</div>
+                <div class="card-header" style="height: 40px;">
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">コメント一覧</div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding: 1rem;">
                     @foreach($task->comments->paginate(5) as $comment)
                     <div class = 'card'>
                         <div class= "card-body">
-                            <p class="card-text">{{ $comment->comment }}</p>
-                            <p class="card-text">登録日:{{$comment->created_at->format('Y/m/d')}}
-                                <a href="{{ action('Admin\CommentController@delete', ['id' => $comment->id]) }}">
-                                    <input type="submit" class="btn btn-danger" value="削除">
-                                </a>
-                            </p>
-                        </div>    
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p class="card-text">{{ $comment->comment }}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p class="card-text">登録日:{{$comment->created_at->format('Y/m/d')}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <a href="{{ action('Admin\CommentController@delete', ['id' => $comment->id]) }}">コメント削除</a>
                     </div>
                     @endforeach
                     {{ $task->comments->paginate(5)->render() }}
