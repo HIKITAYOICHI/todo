@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Todo管理アプリ-詳細画面</h2>
+            <h2>Task管理ツール-詳細画面</h2>
             <div class="card">
                 <div class="card-header">
                     <div class="card-title" style="font-size: 20px;">Todo詳細</div>

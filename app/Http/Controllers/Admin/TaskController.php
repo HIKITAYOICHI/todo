@@ -19,10 +19,6 @@ class TaskController extends Controller
 {
     public function add()
     {
-        // $tasks = Task::where('user_id', Auth::user()->id) ⇦のコマンドでも動くがリレーションをしてるので
-        // indexの＠foreach文にAuth::user()->を入れて id引っ張ってこれるようになっている
-        // $tasks = Task::where('user_id', Auth::user()->id)->where('tatle' ,$search_title)    ⇦のコマンドでも動くがリレーションをしてるので
-        // indexの＠foreach文にAuth::user()->tasks(モデル名)を入れて id引っ張ってこれるようになっている
         return redirect('admin/tasks');
     }
     /**
@@ -34,27 +30,29 @@ class TaskController extends Controller
     {
         $search_title = $request->search_title;
         $by = isset($request->sortby) ? $request->sortby : "asc";
-          
+        
         if ($search_title != '') {
-              //   ユーザー情報取得　関連するユーザーのタスク取得　タイトルで絞り込み
-              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(7);
-        } 
+            // 検索されたら検索結果を取得する
+            $tasks = Task::where('title', $search_title)->paginate(10);
+        }
+        
         else {
             if ($by == '降順'){
-                 //   $by に降順が入ればdesc
-                 $tasks = Auth::user()->orderbytasksdesc->paginate(7);   
+                //   $by に降順が入ればdesc
+                $tasks = Task::all()->sortBydesc('deadline')->paginate(10);
             }
             else if($by == '昇順'){
-                 //   $by に昇順が入ればasc
-                 $tasks = Auth::user()->orderbytasksasc->paginate(7);   
+                //   $by に昇順が入ればasc
+                $tasks = Task::all()->sortBy('deadline')->paginate(10);
             }
-            else{
-                 //   入ってなければ全件取得
-                 $tasks=Auth::user()->tasks->paginate(7);   
+            else {
+                // それ以外は全件取得
+                $tasks = Task::all()->paginate(10);
             }
         }
-       return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
-    }
+        return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
+    }    
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -72,12 +70,15 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        // taskをデータベースに保存
-        $task = new Task;   
-        $form = $request->except(["image", "_token"]);
+        // データベースに保存
+        $task = new Task;
+        $form = $request->all();
+        unset($form['_token']);
         $task->fill($form);
+        // $task->deadline = '2022-01-01';
         $task->user_id = $request->user()->id;
         $task->save();
+        
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
         //画像の保存
@@ -98,7 +99,9 @@ class TaskController extends Controller
             $image = null;
             // dd($image);
         }
-        return redirect('admin/tasks/');
+        
+        return redirect('admin/tasks');
+        //select * from taskmanagement.tasks;
     }
 
     /**
@@ -107,10 +110,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //  詳細画面
     public function show(Request $request, $id)
     {
-        // idの取得
+        
+        // idの取り出し
+        // $id = $request->input('id');
         $task = Task::find($id);
         
         return view('admin.tasks.show', compact('task'));
@@ -125,9 +129,10 @@ class TaskController extends Controller
     public function edit(Request $request)
     {
         
-        // データの取得
+        // Modelからデータの取得
         $task = Task::find($request->id);
-        
+        // $task->status_id = 0;
+      
         return view('admin.tasks.edit', ['task_form' => $task]);
     }
 
@@ -141,18 +146,15 @@ class TaskController extends Controller
     public function update(TaskEditRequest $request)
     {
         
-        // データの取得
+        // Modelからデータの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
         $task_form = $request->all();
         unset($task_form['_token']);
         //データの上書き
         $task->fill($task_form);
+        // $task->deadline = '2022-01-01';
         $task->save();
-        // Todo編集時のメール送信
-        $user = Auth::user();
-        $user_email = Auth::user()->email;
-        Mail::to($user_email)->send(new EditSent($user, $task));
         
         //画像の保存
         $files = $request->file('image');
@@ -172,10 +174,9 @@ class TaskController extends Controller
             $image = null;
             // dd($image);
         }
-        return redirect('admin/tasks/');
+        
+        return redirect('admin/tasks');
     }
-
-    
 
     /**
      * Remove the specified resource from storage.
@@ -185,11 +186,12 @@ class TaskController extends Controller
      */
     public function delete(Request $request)
     {
-        // データの取得
-        $task = Task::find($request->id);
-        // 削除
-        $task->delete();
-        //戻る処理　
-        return redirect('admin/tasks');
+        // Modelからデータの取得
+      $task = Task::find($request->id);
+      // 削除
+      $task->delete();
+      //戻る処理　
+      return redirect('admin/tasks');
+        
     }
 }

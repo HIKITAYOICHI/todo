@@ -7,10 +7,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Todo管理アプリ</h2>
+            <h2>Task管理ツール</h2>
             <div class="card mt-3">
                 <div class="card-header" style="line-height: 1;">
-                    <div class="card-title" style="font-size: 20px;">リスト登録フォーム</div>
+                    <div class="card-title" style="font-size: 20px;">リストの追加</div>
                 </div>
                 <div class="card-body">
                     <form action="{{ action('User\TaskController@store') }}" method="post" enctype="multipart/form-data">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>    
-                        <label>画像投稿フォーム</label>
+                        <label>画像登録</label>
                         <div class="form-group">
                             <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">
                         </div>
@@ -64,62 +64,62 @@
                     <div class="card-title" style="font-size: 20px;">リスト一覧</div>
                 </div>
                 <div class="card-body">
-                        <div class="row" style="margin: 0px;">
-                            <div class="col-md-2 px-0" style="bottom: -6px;">
-                                <h5>検索フォーム</h5>
-                            </div> 
-                            <div class="col-md-4 px-0">
-                                <div id="custom-search-input">
-                                    <div class="input-group">
-                                        <form action="{{ action('User\TaskController@index') }}" method="get">
-                                            <input type="text" class="form-control input-lg" placeholder="" name="search_title" value="{{ $search_title }}">
-                                            <span class="input-group-btn" style="position: relative;top: -37px;right: -210px;">
-                                                {{ csrf_field() }}
-                                                <button class="btn btn-info" type="submit" style="position: relative; right: 30px;">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </form>
-                                    </div>
+                    <div class="row" style="margin: 0px;">
+                        <div class="col-md-2 px-0" style="bottom: -6px;">
+                            <h5>リスト検索</h5>
+                        </div> 
+                        <div class="col-md-4 px-0">
+                            <div id="custom-search-input">
+                                <div class="input-group">
+                                    <form action="{{ action('User\TaskController@index') }}" method="get">
+                                        <input type="text" class="form-control input-lg" placeholder="" name="search_title" value="{{ $search_title }}">
+                                        <span class="input-group-btn" style="position: relative;top: -37px;right: -210px;">
+                                            {{ csrf_field() }}
+                                            <button class="btn btn-info" type="submit" style="position: relative; right: 30px;">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <h6>Todoリスト並び替え
-                            <a href="{{ action('User\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
-                            <a href="{{ action('User\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
-                        </h6>
-                        <table class="table table-bordered">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th width="20%">題名</th>
-                                    <th width="40%">Todo</th>
-                                    <th width="15%">登録日</th>
-                                    <th width="15%">期限</th>
-                                    <th width="10%">進捗</th>
-                                    <th width="5%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($tasks as $task)
-                                <tr>
-                                    <td>{{ \Str::limit($task->title, 100) }}</td>
-                                    <td>{{ \Str::limit($task->body, 100) }}</td>
-                                    <!--下記登録日のフォーマット-->
-                                    <td>{{$task->created_at->format('Y/m/d')}}</td>
-                                    <td>{{$task->deadline}}</td>
-                                    <td>{{ \Str::limit($task->status_name, 50) }}</td>
-                                    <td>
-                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                            <a href="{{ action('User\TaskController@show', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary btn-sm" value="詳細"></a>
-                                            <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-success btn-sm" value="編集"></a>
-                                            <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger btn-sm" value="削除"></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {{ $tasks->links() }}
+                    </div>
+                    <h6>リスト並び替え
+                        <a href="{{ action('User\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
+                        <a href="{{ action('User\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
+                    </h6>
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="20%">題名</th>
+                                <th width="40%">Todo</th>
+                                <th width="15%">登録日</th>
+                                <th width="15%">期限</th>
+                                <th width="10%">進捗</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($tasks as $task)
+                            <tr>
+                                <td>{{ \Str::limit($task->title, 100) }}</td>
+                                <td>{{ \Str::limit($task->body, 100) }}</td>
+                                <!--下記登録日のフォーマット-->
+                                <td>{{$task->created_at->format('Y/m/d')}}</td>
+                                <td>{{$task->deadline}}</td>
+                                <td>{{ \Str::limit($task->status_name, 50) }}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                        <a href="{{ action('User\TaskController@show', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary btn-sm" value="詳細"></a>
+                                        <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-success btn-sm" value="編集"></a>
+                                        <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger btn-sm" value="削除"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{ $tasks->links() }}
                 </div>    
             </div>
         </div>

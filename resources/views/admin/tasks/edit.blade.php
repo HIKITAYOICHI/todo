@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-10 mx-auto">
-            <h2>Todo管理アプリ-編集画面</h2>
+            <h2>Task管理ツール-編集画面</h2>
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="card-title" style="font-size: 20px;">リスト編集</div>
