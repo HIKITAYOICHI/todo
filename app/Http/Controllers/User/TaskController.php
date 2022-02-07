@@ -73,31 +73,53 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         // taskをデータベースに保存
-        $task = new Task;   
+        $task = new Task;
+        
+        $task_form = $request->all();
+        unset($task_form['_token']);
+        
         $form = $request->except(["image", "_token"]);
         $task->fill($form);
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        //画像の保存
-        $files = $request->file('image');
-        // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
+        // //画像の保存
+        // $files = $request->file('image');
+        // // dd($files);
+        // if (isset($files)) {    
+        //     foreach($files as $file){
+        //         $image = new Image;
+        //         // $path = $file->store('public/image');
+        //         // $image->name = basename($path);
+        //         $path = Storage::disk('s3')->putFile('/', $file, 'public');
+        //         $image->name = Storage::disk('s3')->url($path);
+        //         // dd($file);
+        //     	$image->task_id = $task->id;
+        //         $image->save();
+        //     }
+        // } else {
+        //     $image = null;
+        //     // dd($image);
+        // }
+        for ($i=0;$i<=2;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+            
                 $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
                 $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
+                $image->task_id = $task->id;
                 $image->save();
-            }
-        } else {
-            $image = null;
-            // dd($image);
+                //ある場合は変更
+                //追加処理
+                // dd($image);
+            } 
+               
         }
+        
         return redirect('user/tasks/');
     }
 
@@ -155,22 +177,43 @@ class TaskController extends Controller
         Mail::to($user_email)->send(new EditSent($user, $task));
         
         //画像の保存
-        $files = $request->file('image');
+        // $files = $request->file('image');
         // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
-                $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
-                $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
-                $image->save();
+        // if (isset($files)) {    
+        //     foreach($files as $file){
+        //         $image = new Image;
+        //         // $path = $file->store('public/image');
+        //         // $image->name = basename($path);
+        //         $path = Storage::disk('s3')->putFile('/', $file, 'public');
+        //         $image->name = Storage::disk('s3')->url($path);
+        //         // dd($file);
+        //     	$image->task_id = $task->id;
+        //         $image->save();
+        //     }
+        // } else {
+        //     $image = null;
+        //     // dd($image);
+        // }
+        for ($i=0;$i<=2;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+                
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
+                $task->images[$i]->name = Storage::disk('s3')->url($path);
+                $task->images[$i]->save();
+                //ある場合は変更
+                //追加処理
+                // dd($image);
+            } else {
+                
+                $task_form['stored_image' . $i];
+                //登録されてるのあればそれ使用
+                //削除入れるならelseifつかって
+                // dd($image);
             }
-        } else {
-            $image = null;
-            // dd($image);
+               
         }
         return redirect('user/tasks/');
     }

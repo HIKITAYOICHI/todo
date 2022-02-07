@@ -41,9 +41,20 @@
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">画像登録</label>
+                            
                             <div class="col-md-8">
-                                <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">
+                                <!--<input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">-->
+                                <img src="{{ $task_form->images[0]->name }}" width="100" height="100"> 
+                                <input type="file"  name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                <input type="hidden" name='stored_image0' value="{{ $task_form->images[0]->name }}">
+                                <img src="{{ $task_form->images[1]->name }}" width="100" height="100"> 
+                                <input type="file"  name="image1" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                <input type="hidden" name='stored_image1' value="{{ $task_form->images[1]->name }}">
+                                <img src="{{ $task_form->images[2]->name }}" width="100" height="100"> 
+                                <input type="file"  name="image2" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                <input type="hidden" name='stored_image2' value="{{ $task_form->images[2]->name }}">
                             </div>
+                            
                         </div>
                         <!--下記status_nameの送信-->
                         <div class="form-group row">

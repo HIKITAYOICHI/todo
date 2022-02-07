@@ -40,7 +40,7 @@
                             <div class="row">
                             @foreach($task->images as $task_image)
                                 <div class="col-md" >
-                                    <img src="{{ $task_image->name }}" width="150" height="150">
+                                   <img src="{{ $task_image->name }}" width="100" height="100"> 
                                 </div>
                             @endforeach
                             </div>
