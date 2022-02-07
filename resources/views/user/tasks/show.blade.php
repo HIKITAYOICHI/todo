@@ -39,7 +39,7 @@
                             <h6>登録画像一覧</h6>
                             <div class="row">
                             @foreach($task->images as $task_image)
-                                <div class="col-md" >
+                                <div class="col-md-4" >
                                    <img src="{{ $task_image->name }}" width="100" height="100"> 
                                 </div>
                             @endforeach

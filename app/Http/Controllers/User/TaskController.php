@@ -74,17 +74,15 @@ class TaskController extends Controller
     {
         // taskをデータベースに保存
         $task = new Task;
-        
         $task_form = $request->all();
         unset($task_form['_token']);
-        
         $form = $request->except(["image", "_token"]);
         $task->fill($form);
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        
+        // 画像の保存
         for ($i=0;$i<=2;$i++) {
             
             $image = $request->file('image' . $i);
@@ -96,11 +94,7 @@ class TaskController extends Controller
                 $image->name = Storage::disk('s3')->url($path);
                 $image->task_id = $task->id;
                 $image->save();
-                //ある場合は変更
-                //追加処理
-                // dd($image);
             } 
-               
         }
         
         return redirect('user/tasks/');
@@ -129,7 +123,6 @@ class TaskController extends Controller
      */
     public function edit(Request $request)
     {
-        
         // データの取得
         $task = Task::find($request->id);
         
@@ -145,7 +138,6 @@ class TaskController extends Controller
      */
     public function update(TaskEditRequest $request)
     {
-        
         // データの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
@@ -174,7 +166,6 @@ class TaskController extends Controller
                 $task_form['stored_image' . $i];
                 
             }
-               
         }
         return redirect('user/tasks/');
     }

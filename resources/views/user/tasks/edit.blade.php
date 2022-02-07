@@ -39,30 +39,30 @@
                                 <input type="date" name="deadline">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label">画像登録</label>
+                        <div class="form-group">
+                            @for ($i=0;$i<=2;$i++)
                             
-                            
-                                
-                                @for ($i=0;$i<=2;$i++)
-                                <div class="col-md-2">
-                                    @if (isset($task_form->images[$i]->name))
-                                        <img src="{{ $task_form->images[$i]->name }}" width="100" height="100"> 
-                                        <input type="file"  name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                @if (isset($task_form->images[$i]->name))
+                                <div class="row">
+                                    <label for="name" class="col-md-2 col-form-label mt-2">画像登録</label>
+                                    <div class="col-md-7 d-flex align-items-center">
+                                        <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
                                         <input type="hidden" name='stored_image0' value="{{ $task_form->images[$i]->name }}">
-                                    @else 
-                                        <img src="{{ asset('image/dummy.png') }}" alt="">
-                                    @endif
-                                </div>    
-                                @endfor
-                                
-                            
-                            
+                                    </div> 
+                                    <div class="col-md-3 mt-1 d-flex justify-content-end align-items-center">
+                                        <img src="{{ $task_form->images[$i]->name }}" width="70" height="70">
+                                    </div>
+                                </div>
+                                @else 
+                                    <img src="{{ asset('image/dummy.png') }}" alt="">
+                                @endif
+                             
+                            @endfor
                         </div>
                         <!--下記status_nameの送信-->
                         <div class="form-group row">
                             <label for="status_name"  class="col-md-2 col-form-label">進捗</label>
-                            <div class="col-md-8">
+                            <div class="col-md-8 align-self-center">
                                 <select name="status_name">
                                     <option value="未着">未着</option>
                                     <option value="未完了">未完了</option>

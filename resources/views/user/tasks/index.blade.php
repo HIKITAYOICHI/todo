@@ -105,18 +105,9 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">画像登録</label>
                             <div class="col-md-8">
-                                <!--<input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">-->
-                                <!--<input type="file" id="image1" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">-->
-                                <!--<input type="file" id="image2" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">-->
-                                <!--<input type="file" id="image3" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">-->
                                 <input type="file"  name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
-                                
-                                
                                 <input type="file"  name="image1" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
-                                
-                                
                                 <input type="file"  name="image2" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
-                                
                             </div>
                             {{ csrf_field() }}
                             <div class="col-md-2 text-right">
