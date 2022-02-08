@@ -158,8 +158,17 @@ class TaskController extends Controller
             if (isset($image)) {
                 
                 $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
-                $task->images[$i]->name = Storage::disk('s3')->url($path);
-                $task->images[$i]->save();
+                
+                if (isset($task->images[$i])){
+                    $task->images[$i]->name = Storage::disk('s3')->url($path);
+                    $task->images[$i]->save();
+                } else {
+                    $image = new Image;
+                    
+                    $image->name = Storage::disk('s3')->url($path);
+                    $image->task_id = $task->id;
+                    $image->save();
+                }
                 
             } else {
                 
