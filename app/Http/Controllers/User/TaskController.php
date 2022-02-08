@@ -40,11 +40,11 @@ class TaskController extends Controller
               $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(5);
         } 
         else {
-            if ($by == '降順'){
+            if ($by == 'desc'){
                  //   $by に降順が入ればdesc
                  $tasks = Auth::user()->orderbytasksdesc->paginate(5);   
             }
-            else if($by == '昇順'){
+            else if($by == 'asc'){
                  //   $by に昇順が入ればasc
                  $tasks = Auth::user()->orderbytasksasc->paginate(5);   
             }
@@ -169,11 +169,6 @@ class TaskController extends Controller
                     $image->task_id = $task->id;
                     $image->save();
                 }
-                
-            } else {
-                
-                $task_form['stored_image' . $i];
-                
             }
         }
         return redirect('user/tasks/');
