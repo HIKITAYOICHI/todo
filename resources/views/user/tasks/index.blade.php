@@ -24,10 +24,10 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control input-lg" placeholder="Taskの検索" name="search_title" value="{{ $search_title }}">
                                     <span class="input-group-btn">
-                                        {{ csrf_field() }}
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </span>
                                 </div>
+                                {{ csrf_field() }}
                             </form>
                         </div>
                     </div>    
@@ -77,6 +77,7 @@
                 </div>
                 <div class="card-body" style="padding: 1.0rem;">
                     <form action="{{ action('User\TaskController@store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -105,13 +106,15 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">画像登録</label>
                             <div class="col-md-8">
-                                <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">
+                                <input type="file"  name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                <input type="file"  name="image1" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                <input type="file"  name="image2" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
                             </div>
-                            {{ csrf_field() }}
                             <div class="col-md-2 text-right">
                                 <input type="submit" class="btn btn-primary" value="登録">
                             </div>
                         </div>
+                        {{ csrf_field() }}
                     </form>
                 </div>
             </div>

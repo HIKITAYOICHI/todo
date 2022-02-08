@@ -37,7 +37,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
         Route::get('home', 'HomeController@index')->name('home');
-        // Route::get('tasks','TaskController@add');
+        Route::get('tasks','TaskController@add');
         Route::get('tasks/create','TaskController@add');
         Route::post('tasks/create','TaskController@store');
         Route::get('tasks/edit', 'TaskController@edit');
@@ -48,7 +48,9 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
         Route::get('tasks/store', 'CommentController@store')->name('tasks.store');
         Route::post('tasks/store','CommentController@store');
         Route::get('tasks/show/delete/{id}', 'CommentController@delete');
-        Route::post('tasks/show/delete/{id}', 'CommentController@delete');
+        Route::post('tasks/delete/{id}', 'CommentController@delete');
+        Route::get('tasks/delete/{id}', 'ImageController@delete');
+        // Route::post('tasks/delete/{id}', 'ImageController@delete');
     });
 });
 

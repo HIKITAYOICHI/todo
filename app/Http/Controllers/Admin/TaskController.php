@@ -81,23 +81,19 @@ class TaskController extends Controller
         
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        //画像の保存
-        $files = $request->file('image');
-        // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
+        // 画像の保存
+        for ($i=0;$i<=3;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+            
                 $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
                 $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
+                $image->task_id = $task->id;
                 $image->save();
-            }
-        } else {
-            $image = null;
-            // dd($image);
+            } 
         }
         
         return redirect('admin/tasks');
@@ -155,24 +151,31 @@ class TaskController extends Controller
         $task->fill($task_form);
         // $task->deadline = '2022-01-01';
         $task->save();
-        
-        //画像の保存
-        $files = $request->file('image');
-        // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
-                $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
-                $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
-                $image->save();
+        // 画像の登録
+        for ($i=0;$i<=2;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+                
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
+                
+                if (isset($task->images[$i])){
+                    $task->images[$i]->name = Storage::disk('s3')->url($path);
+                    $task->images[$i]->save();
+                } else {
+                    $image = new Image;
+                    
+                    $image->name = Storage::disk('s3')->url($path);
+                    $image->task_id = $task->id;
+                    $image->save();
+                }
+                
+            } else {
+                
+                $task_form['stored_image' . $i];
+                
             }
-        } else {
-            $image = null;
-            // dd($image);
         }
         
         return redirect('admin/tasks');

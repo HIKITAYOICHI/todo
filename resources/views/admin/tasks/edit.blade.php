@@ -34,21 +34,41 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="deadline" class="col-md-2 col-form-label">期限入力</label>
-                            <div class="col-md-8">
+                            <label for="deadline" class="col-md-2 col-form-label d-flex align-items-center">期限入力</label>
+                            <div class="col-md-8 d-flex align-items-center">
                                 <input type="date" name="deadline">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label">画像登録</label>
-                            <div class="col-md-8">
-                                <input type="file" id="image" name="image[]" accept=".png, .jpg, .jpeg, .pdf, .doc" multiple value="{{ old('name') }}">
-                            </div>
+                        <div class="form-group">
+                            @for ($i=0;$i<=2;$i++)
+                                @if (isset($task_form->images[$i]->name))
+                                <div class="row">
+                                    <label for="name" class="col-md-2 col-form-label d-flex align-items-center">画像編集</label>
+                                    <div class="col-md-7 d-flex align-items-center">
+                                        <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                        <input type="hidden" name='stored_image0' value="{{ $task_form->images[$i]->name }}">
+                                    </div> 
+                                    <div class="col-md-3 mt-2 d-flex justify-content-end align-items-center">
+                                        <img src="{{ $task_form->images[$i]->name }}" width="70" height="70">
+                                    </div>
+                                </div>
+                                @else
+                                <div class="row">
+                                    <label for="name" class="col-md-2 col-form-label d-flex align-items-center">画像登録</label>
+                                    <div class="col-md-7 d-flex align-items-center">
+                                        <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                    </div> 
+                                    <div class="col-md-3 mt-2 d-flex justify-content-end align-items-center">
+                                        <img src="{{ asset('storage/image/dummy.png') }}" alt="" width="70" height="70">
+                                    </div>
+                                </div>
+                                @endif
+                            @endfor
                         </div>
                         <!--下記status_nameの送信-->
                         <div class="form-group row">
                             <label for="status_name"  class="col-md-2 col-form-label">進捗</label>
-                            <div class="col-md-8">
+                            <div class="col-md-8 d-flex align-items-center">
                                 <select name="status_name">
                                     <option value="未着">未着</option>
                                     <option value="未完了">未完了</option>

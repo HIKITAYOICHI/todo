@@ -35,12 +35,15 @@
                         </thead>
                     </table>
                     <div class="card mt-3">
+                        <div class="card-header" style="height: 20px;">
+                            <div class="card-title" style="font-size: 15px; position: relative; top: -10px;">登録画像一覧</div>
+                        </div>
                         <div class="card-body">
-                            <h6>登録画像一覧</h6>
-                            <div class="row">
+                            <h6></h6>
+                            <div class="row"CD>
                             @foreach($task->images as $task_image)
-                                <div class="col-md" >
-                                    <img src="{{ $task_image->name }}" width="150" height="150">
+                                <div class="col-md-3 d-flex justify-content-center align-items-center" >
+                                   <img src="{{ $task_image->name }}" width="100" height="100"> 
                                 </div>
                             @endforeach
                             </div>

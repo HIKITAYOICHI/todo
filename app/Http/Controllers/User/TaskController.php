@@ -40,11 +40,11 @@ class TaskController extends Controller
               $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(5);
         } 
         else {
-            if ($by == '降順'){
+            if ($by == 'desc'){
                  //   $by に降順が入ればdesc
                  $tasks = Auth::user()->orderbytasksdesc->paginate(5);   
             }
-            else if($by == '昇順'){
+            else if($by == 'asc'){
                  //   $by に昇順が入ればasc
                  $tasks = Auth::user()->orderbytasksasc->paginate(5);   
             }
@@ -73,31 +73,30 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         // taskをデータベースに保存
-        $task = new Task;   
+        $task = new Task;
+        $task_form = $request->all();
+        unset($task_form['_token']);
         $form = $request->except(["image", "_token"]);
         $task->fill($form);
         $task->user_id = $request->user()->id;
         $task->save();
         $tasks = Task::orderBy('deadline', 'desc')->get();
         
-        //画像の保存
-        $files = $request->file('image');
-        // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
+        // 画像の保存
+        for ($i=0;$i<=2;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+            
                 $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
                 $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
+                $image->task_id = $task->id;
                 $image->save();
-            }
-        } else {
-            $image = null;
-            // dd($image);
+            } 
         }
+        
         return redirect('user/tasks/');
     }
 
@@ -124,7 +123,6 @@ class TaskController extends Controller
      */
     public function edit(Request $request)
     {
-        
         // データの取得
         $task = Task::find($request->id);
         
@@ -140,7 +138,6 @@ class TaskController extends Controller
      */
     public function update(TaskEditRequest $request)
     {
-        
         // データの取得
         $task = Task::find($request->id);
         // 送信されてきたフォームデータの格納
@@ -153,24 +150,26 @@ class TaskController extends Controller
         $user = Auth::user();
         $user_email = Auth::user()->email;
         Mail::to($user_email)->send(new EditSent($user, $task));
-        
-        //画像の保存
-        $files = $request->file('image');
-        // dd($files);
-        if (isset($files)) {    
-            foreach($files as $file){
-                $image = new Image;
-                // $path = $file->store('public/image');
-                // $image->name = basename($path);
-                $path = Storage::disk('s3')->putFile('/', $file, 'public');
-                $image->name = Storage::disk('s3')->url($path);
-                // dd($file);
-            	$image->task_id = $task->id;
-                $image->save();
+        // 画像の登録
+        for ($i=0;$i<=2;$i++) {
+            
+            $image = $request->file('image' . $i);
+            
+            if (isset($image)) {
+                
+                $path = Storage::disk('s3')->putFile('/', $task_form['image' . $i], 'public');
+                
+                if (isset($task->images[$i])){
+                    $task->images[$i]->name = Storage::disk('s3')->url($path);
+                    $task->images[$i]->save();
+                } else {
+                    $image = new Image;
+                    
+                    $image->name = Storage::disk('s3')->url($path);
+                    $image->task_id = $task->id;
+                    $image->save();
+                }
             }
-        } else {
-            $image = null;
-            // dd($image);
         }
         return redirect('user/tasks/');
     }
