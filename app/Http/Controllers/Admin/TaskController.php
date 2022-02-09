@@ -170,14 +170,8 @@ class TaskController extends Controller
                     $image->task_id = $task->id;
                     $image->save();
                 }
-                
-            } else {
-                
-                $task_form['stored_image' . $i];
-                
-            }
+            }    
         }
-        
         return redirect('admin/tasks');
     }
 
