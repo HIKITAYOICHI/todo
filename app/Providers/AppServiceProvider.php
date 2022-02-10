@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        // $url->forceScheme('https');//
+        //デプロイ時にコメントアウト
+        $url->forceScheme('https');//
         
         /**
          * Paginate a standard Laravel Collection.
