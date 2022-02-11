@@ -65,7 +65,7 @@
                                     </div> 
                                     <div class="col-md-3" style="margin: auto; bottom: -12px;">
                                         <div class="row justify-content-end" style="margin: auto;">
-                                        <img src="{{ asset('storage/image/dummy.png') }}" alt="" width="70" height="70">
+                                            <img src="https://techboost-todo.s3.ap-northeast-1.amazonaws.com/uizmvX6zLA1BoNmFsWzrfTwwJLSI2m2CrbpwrsyH.png" alt="no_image" width="70" height="70">
                                         </div>
                                     </div>
                                 </div>

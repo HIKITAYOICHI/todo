@@ -59,7 +59,7 @@
                                         <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
                                     </div> 
                                     <div class="col-md-3 mt-2 d-flex justify-content-end align-items-center">
-                                        <img src="{{ asset('storage/image/dummy.png') }}" alt="" width="70" height="70">
+                                        <img src="https://techboost-todo.s3.ap-northeast-1.amazonaws.com/uizmvX6zLA1BoNmFsWzrfTwwJLSI2m2CrbpwrsyH.png" alt="no_image" width="70" height="70">
                                     </div>
                                 </div>
                                 @endif
