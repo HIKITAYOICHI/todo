@@ -33,26 +33,30 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $search_title = $request->search_title;
-        $by = isset($request->sortby) ? $request->sortby : "asc";
-          
-        if ($search_title != '') {
-              //   ユーザー情報取得　関連するユーザーのタスク取得　タイトルで絞り込み
-              $tasks = Auth::user()->tasks->where('title', $search_title)->paginate(5);
-        } 
-        else {
-            if ($by == 'desc'){
-                 //   $by に降順が入ればdesc
-                 $tasks = Auth::user()->orderbytasksdesc->paginate(5);   
-            }
-            else if($by == 'asc'){
-                 //   $by に昇順が入ればasc
-                 $tasks = Auth::user()->orderbytasksasc->paginate(5);   
-            }
-            else{
-                 //   入ってなければ全件取得
-                 $tasks=Auth::user()->tasks->paginate(5);   
-            }
+        $sort = $request->sortby;
+        $deadline = $request->deadline;
+        
+        //クエリビルダの宣言
+        $query = Auth::user()->tasks();
+        //もしユーザが検索窓に入力していたら
+        if(isset($search_title)) {
+          //$queryに検索条件を追加
+            $query->where('title', $search_title);
         }
+        //もしユーザが並び替えにチェックしていたら
+        if(isset($sort)){
+          //$queryに並び替え条件を追加
+            $query->orderBy('created_at', $sort);
+        }
+        //もしユーザーが期限にチェックしたら
+        if(isset($deadline)) {
+            //$queryに並び替え条件追加
+            $query->orderByRaw('deadline IS NULL ASC')->orderBy('deadline');
+        }
+        //組み立てたクエリをもとにページネーションで値を取得
+        $tasks = $query->paginate(8); 
+                
+        
        return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
     }
     /**

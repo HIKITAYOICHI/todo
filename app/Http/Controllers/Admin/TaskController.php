@@ -29,27 +29,59 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $search_title = $request->search_title;
-        $by = isset($request->sortby) ? $request->sortby : "asc";
+        $sort = $request->sortby;
+        $deadline = $request->deadline;
         
-        if ($search_title != '') {
-            // 検索されたら検索結果を取得する
-            $tasks = Task::where('title', $search_title)->paginate(10);
+        //クエリビルダの宣言
+        $query = Task::all();
+        //もしユーザが検索窓に入力していたら
+        if(isset($search_title)) {
+          //$queryに検索条件を追加
+            $query->where('title', $search_title);
         }
+        //もしユーザが並び替えにチェックしていたら
+        if(isset($sort)){
+            //$queryに並び替え条件を追加
+            if($sort == 'desc'){
+                // dd($sort);
+                $query->sortByDesc('created_at');
+            
+            }elseif($sort == 'asc'){
+                // dd($sort);
+                $query->sortBy('created_at');
+            
+            }
+        }
+        //もしユーザーが期限にチェックしたら
+        if(isset($deadline)) {
+            //$queryに並び替え条件追加
+            $query->sortBy('deadline');
+        }
+        //組み立てたクエリをもとにページネーションで値を取得
+        $tasks = $query->paginate(8);
         
-        else {
-            if ($by == '降順'){
-                //   $by に降順が入ればdesc
-                $tasks = Task::all()->sortBydesc('deadline')->paginate(10);
-            }
-            else if($by == '昇順'){
-                //   $by に昇順が入ればasc
-                $tasks = Task::all()->sortBy('deadline')->paginate(10);
-            }
-            else {
-                // それ以外は全件取得
-                $tasks = Task::all()->paginate(10);
-            }
-        }
+        
+        // //クエリビルダの宣言
+        
+        // //もしユーザが検索窓に入力していたら
+        // if(isset($search_title)) {
+        //     //$queryに検索条件を追加
+        //     $query=Task::where('title', $search_title)->paginate(10);
+        // }
+        // //もしユーザが降順にチェックしていたら
+        // if(isset($sort)){
+        //     //$queryに並び替え条件を追加
+        //     $query=Task::orderBy('created_at', $sort)->paginate(10);
+        // } 
+        // //もしユーザーが期限にチェックしたら
+        // if(isset($deadline)) {
+        //     //$queryに並び替え条件追加
+        //     $query=Task::orderByRaw('deadline IS NULL ASC')->orderBy('deadline')->paginate(10);
+        // }
+        // //組み立てたクエリをもとにページネーションで値を取得
+        // $tasks = $query;
+        
+        
         return view('admin.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);
     }    
     

@@ -15,9 +15,10 @@
                 <div class="card-body" style="padding: 1.0rem;">
                     <div class="row">
                         <div class="col-md-9 align-self-end">
-                            リスト並び替え
-                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "降順"]) }}">降順</a>
-                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "昇順"]) }}">昇順</a>
+                            各種ソート:
+                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "desc"]) }}">降順 </a>
+                            <a href="{{ action('Admin\TaskController@index', ['sortby' => "asc"]) }}">昇順 </a>
+                            <a href="{{ action('Admin\TaskController@index', ['deadline' => "asc"]) }}">期限 </a>
                         </div>
                         <div class="col-md-3">
                             <form action="{{ action('Admin\TaskController@index') }}" method="get">
@@ -67,6 +68,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <!--ページネーション-->
                     <div class="d-flex justify-content-center">
                          {{ $tasks->links() }}
                     </div>
