@@ -39,3 +39,7 @@ body {
   color: #ffffff;
 }
 
+.table-wrap {
+  overflow: auto;
+}
+

@@ -32,38 +32,41 @@
                                 {{ csrf_field() }}
                             </form>
                         </div>
+                    </div>
+                    <!--テーブルのレスポンシブ化-->
+                    <div class="table-wrap">
+                        <table class="table table-bordered mt-1">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th width="20%">タイトル</th>
+                                    <th width="40%">Task</th>
+                                    <th width="15%">登録日</th>
+                                    <th width="15%">期限</th>
+                                    <th width="10%">進捗</th>
+                                    <th width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($tasks as $task)
+                                <tr>
+                                    <td>{{ \Str::limit($task->title, 100) }}</td>
+                                    <td>{{ \Str::limit($task->body, 100) }}</td>
+                                    <!--下記登録日のフォーマット-->
+                                    <td>{{$task->created_at->format('Y/m/d')}}</td>
+                                    <td>{{$task->deadline}}</td>
+                                    <td>{{ \Str::limit($task->status_name, 50) }}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                            <a href="{{ action('User\TaskController@show', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary btn-sm" value="詳細"></a>
+                                            <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-success btn-sm" value="編集"></a>
+                                            <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger btn-sm" value="削除"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>    
-                    <table class="table table-bordered mt-1">
-                        <thead class="thead-light">
-                            <tr>
-                                <th width="20%">タイトル</th>
-                                <th width="40%">Task</th>
-                                <th width="15%">登録日</th>
-                                <th width="15%">期限</th>
-                                <th width="10%">進捗</th>
-                                <th width="5%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($tasks as $task)
-                            <tr>
-                                <td>{{ \Str::limit($task->title, 100) }}</td>
-                                <td>{{ \Str::limit($task->body, 100) }}</td>
-                                <!--下記登録日のフォーマット-->
-                                <td>{{$task->created_at->format('Y/m/d')}}</td>
-                                <td>{{$task->deadline}}</td>
-                                <td>{{ \Str::limit($task->status_name, 50) }}</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                        <a href="{{ action('User\TaskController@show', ['id' => $task->id]) }}"><input type="submit" class="btn btn-primary btn-sm" value="詳細"></a>
-                                        <a href="{{ action('User\TaskController@edit', ['id' => $task->id]) }}"><input type="submit" class="btn btn-success btn-sm" value="編集"></a>
-                                        <a href="{{ action('User\TaskController@delete', ['id' => $task->id]) }}"><input type="submit" class="btn btn-danger btn-sm" value="削除"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
                     <!--ページネーション-->
                     <div class="d-flex justify-content-center">
                         {{ $tasks->links() }}

@@ -13,31 +13,34 @@
                     <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task詳細</div>
                 </div>
                 <div class="card-body" style="padding: 1rem;">
-                    <table class="table table-bordered mt-1">
-                        <thead class="thead-light">
-                            <tr>
-                                <th width="5%">ID</th>
-                                <th width="5%">名前</th>
-                                <th width="20%">タイトル</th>
-                                <th width="30%">Task</th>
-                                <th width="15%">登録日</th>
-                                <th width="15%">期限</th>
-                                <th width="15%">進捗</th>
-                            </tr>
-                            <tbody>
-                            <tr>
-                                <td>{{$task->user_id}}</td>
-                                <td>{{$task->user->name}}</td>
-                                <td>{{ \Str::limit($task->title, 100) }}</td>
-                                <td>{{ \Str::limit($task->body, 100) }}</td>
-                                <!--下記登録日のフォーマット-->
-                                <td>{{$task->created_at->format('Y/m/d')}}</td>
-                                <td>{{$task->deadline}}</td>
-                                <td>{{ \Str::limit($task->status_name, 50) }}</td>
-                            </tr>
-                            </tbody>
-                        </thead>
-                    </table>
+                    <!--テーブルのレスポンシブ化-->
+                    <div class="table-wrap">
+                        <table class="table table-bordered mt-1">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th width="5%">ID</th>
+                                    <th width="5%">名前</th>
+                                    <th width="20%">タイトル</th>
+                                    <th width="30%">Task</th>
+                                    <th width="15%">登録日</th>
+                                    <th width="15%">期限</th>
+                                    <th width="15%">進捗</th>
+                                </tr>
+                                <tbody>
+                                <tr>
+                                    <td>{{$task->user_id}}</td>
+                                    <td>{{$task->user->name}}</td>
+                                    <td>{{ \Str::limit($task->title, 100) }}</td>
+                                    <td>{{ \Str::limit($task->body, 100) }}</td>
+                                    <!--下記登録日のフォーマット-->
+                                    <td>{{$task->created_at->format('Y/m/d')}}</td>
+                                    <td>{{$task->deadline}}</td>
+                                    <td>{{ \Str::limit($task->status_name, 50) }}</td>
+                                </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                    </div>    
                     <div class="card mt-3">
                         <div class="card-body">
                             <h6>登録画像一覧</h6>
