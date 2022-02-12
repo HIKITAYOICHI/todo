@@ -32,7 +32,7 @@ class EditSent extends Mailable
     public function build()
     {
         return $this->view('emails.edit_todo')
-                    ->from('testmail1234qwer@gmail.com', 'Admin')
+                    ->from('tasktool@tasktool.awsapps.com', 'Task管理ツール')
                     ->subject('Todo編集の通知')
                     ->with(['user' => $this->user])
                     ->with(['task' => $this->task]);

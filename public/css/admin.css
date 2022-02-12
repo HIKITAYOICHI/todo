@@ -1,7 +1,7 @@
 body {
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f08300;
+  background-color: #FCEBCA;
   color: #000;
 }
 
@@ -15,7 +15,7 @@ body {
 }
 
 .nav-link {
-  color: #FEFAFE !important;
+  color: #ffffff !important;
 }
 
 .table-dark {
@@ -37,5 +37,9 @@ body {
 
 .login-body {
   background-color: rgba(234, 239, 240, 0.8);
+}
+
+.toplink {
+  color: #ffffff;
 }
 

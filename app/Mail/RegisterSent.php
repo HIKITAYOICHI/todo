@@ -31,7 +31,7 @@ class RegisterSent extends Mailable
     public function build()
     {
         return $this->view('emails.register_user')
-                    ->from('testmail1234qwer@gmail.com', 'Admin')
+                    ->from('tasktool@tasktool.awsapps.com', 'Task管理ツール')
                     ->subject('新規ユーザー追加の通知')
                     ->with(['user' => $this->user]);
     }

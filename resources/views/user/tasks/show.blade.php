@@ -42,8 +42,8 @@
                             <h6></h6>
                             <div class="row"CD>
                             @foreach($task->images as $task_image)
-                                <div class="col-md-3 d-flex justify-content-center align-items-center" >
-                                   <img src="{{ $task_image->name }}" width="100" height="100"> 
+                                <div class="col-md d-flex justify-content-center align-items-center" >
+                                   <img src="{{ $task_image->name }}" width="120" height="120"> 
                                 </div>
                             @endforeach
                             </div>

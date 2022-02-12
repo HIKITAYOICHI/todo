@@ -54,7 +54,7 @@ class TaskController extends Controller
             $query->orderByRaw('deadline IS NULL ASC')->orderBy('deadline');
         }
         //組み立てたクエリをもとにページネーションで値を取得
-        $tasks = $query->paginate(8); 
+        $tasks = $query->paginate(5); 
                 
         
        return view('user.tasks.index', ['tasks' => $tasks, 'search_title' => $search_title]);

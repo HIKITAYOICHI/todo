@@ -36,9 +36,9 @@
                         <thead class="thead-light">
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="5%">名前</th>
+                                <th width="10%">User</th>
                                 <th width="20%">タイトル</th>
-                                <th width="30%">Todo</th>
+                                <th width="25%">Todo</th>
                                 <th width="15%">登録日</th>
                                 <th width="15%">期限</th>
                                 <th width="15%">進捗</th>
