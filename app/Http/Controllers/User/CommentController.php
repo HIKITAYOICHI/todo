@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Task;
+use App\Models\Image;
 use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller

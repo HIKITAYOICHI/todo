@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Task;
+use App\Models\Comment;
 
 
 class ImageController extends Controller
@@ -27,6 +28,9 @@ class ImageController extends Controller
         
         // 削除
         $image->delete();
+        // if(isset($image)){
+        // $image->delete();
+        // }
         //リダイレクト
         return redirect()->back();
         

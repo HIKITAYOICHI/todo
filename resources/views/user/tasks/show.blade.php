@@ -42,7 +42,7 @@
                             </div>
                             <div class="card-body">
                                 <h6></h6>
-                                <div class="row"CD>
+                                <div class="row">
                                 @foreach($task->images as $task_image)
                                     <div class="col-md d-flex justify-content-center align-items-center" >
                                        <img src="{{ $task_image->name }}" width="120" height="120"> 
