@@ -33,7 +33,7 @@ class TaskController extends Controller
         $deadline = $request->deadline;
         
         //クエリビルダの宣言
-        $query = Task::all();
+        $query = Task::query();
         //もしユーザが検索窓に入力していたら
         if(isset($search_title)) {
           //$queryに検索条件を追加
@@ -41,24 +41,16 @@ class TaskController extends Controller
         }
         //もしユーザが並び替えにチェックしていたら
         if(isset($sort)){
-            //$queryに並び替え条件を追加
-            if($sort == 'desc'){
-                // dd($sort);
-                $query->sortByDesc('created_at');
-            
-            }elseif($sort == 'asc'){
-                // dd($sort);
-                $query->sortBy('created_at');
-            
-            }
+          //$queryに並び替え条件を追加
+            $query->orderBy('created_at', $sort);
         }
         //もしユーザーが期限にチェックしたら
         if(isset($deadline)) {
             //$queryに並び替え条件追加
-            $query->sortBy('deadline');
+            $query->orderByRaw('deadline IS NULL ASC')->orderBy('deadline');
         }
         //組み立てたクエリをもとにページネーションで値を取得
-        $tasks = $query->paginate(8);
+        $tasks = $query->paginate(10); 
         
         
         // //クエリビルダの宣言
