@@ -1,10 +1,6 @@
 ## ・アプリケーション名  
 <h3 align="center">- Task管理ツール-</h3>
-    <p align="center">
-        <a href="http://yoichi-tasktool.com/user/tasks">
-            <img src="https://user-images.githubusercontent.com/93024539/153747315-3b766df5-27c0-436e-90bc-fd8a56c37bff.png" alt="tasltool-top" width="550px" height="386px">
-        </a>
-    </p>
+<img src="https://user-images.githubusercontent.com/93024539/153747315-3b766df5-27c0-436e-90bc-fd8a56c37bff.png" alt="tasktool_top">
 
 
 
