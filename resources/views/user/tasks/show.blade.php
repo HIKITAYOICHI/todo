@@ -7,7 +7,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Task管理ツール-詳細画面</h2>
             <div class="card">
                 <div class="card-header" style="height: 40px;">
                     <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task詳細</div>
@@ -18,8 +17,8 @@
                         <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">タイトル</th>
-                                    <th width="40%">Task</th>
+                                    <th width="20%">Task名</th>
+                                    <th width="40%">詳細</th>
                                     <th width="15%">登録日</th>
                                     <th width="15%">期限</th>
                                     <th width="10%">進捗</th>
@@ -79,7 +78,7 @@
                             {{ csrf_field() }}
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                 <input type="hidden" name="task_id" value="{{ $task->id }}">
-                                <input type="submit" class="btn btn-primary" value="登録">
+                                <input type="submit" class="btn btn-primary" value="保存">
                             </div>
                         </div>
                     </form>

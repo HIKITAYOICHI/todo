@@ -7,7 +7,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Task管理ツール-詳細画面(Admin)</h2>
             <div class="card">
                 <div class="card-header" style="height: 40px;">
                     <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task詳細</div>
@@ -19,9 +18,9 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th width="5%">ID</th>
-                                    <th width="5%">名前</th>
-                                    <th width="20%">タイトル</th>
-                                    <th width="30%">Task</th>
+                                    <th width="5%">User</th>
+                                    <th width="20%">Task名</th>
+                                    <th width="30%">詳細</th>
                                     <th width="15%">登録日</th>
                                     <th width="15%">期限</th>
                                     <th width="15%">進捗</th>

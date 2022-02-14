@@ -7,10 +7,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Task管理ツール(Admin)</h2>
             <div class="card">
                 <div class="card-header" style="height: 40px;">
-                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">全ユーザーリスト一覧</div>
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">全ユーザーTask一覧</div>
                 </div>
                 <div class="card-body" style="padding: 1.0rem;">
                     <div class="row">
@@ -39,8 +38,8 @@
                                     <tr>
                                         <th width="5%">ID</th>
                                         <th width="10%">User</th>
-                                        <th width="20%">タイトル</th>
-                                        <th width="25%">Todo</th>
+                                        <th width="20%">Task名</th>
+                                        <th width="25%">詳細</th>
                                         <th width="15%">登録日</th>
                                         <th width="15%">期限</th>
                                         <th width="15%">進捗</th>

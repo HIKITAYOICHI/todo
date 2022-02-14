@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<p>{{ $user->name }}様のTodoが編集されました<br>
-【題名】<br>
+<p>{{ $user->name }}様のTaskが編集されました<br>
+【Task名】<br>
 {{ $task->title }}<br>
-【Todo】<br>
+【詳細】<br>
 {{ $task->body }}<br>
 【期限】<br>
 {{ $task->deadline }}</p>

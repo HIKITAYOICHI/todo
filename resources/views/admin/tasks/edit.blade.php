@@ -7,10 +7,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Task管理ツール-編集画面(Admin)</h2>
             <div class="card mt-3">
                 <div class="card-header" style="height: 40px;">
-                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">リスト編集</div>
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task編集</div>
                 </div>
                 <div class="card-body">
                     <form action="{{ action('Admin\TaskController@update') }}" method="post" enctype="multipart/form-data">
@@ -22,13 +21,13 @@
                             </ul>
                         @endif
                         <div class="form-group row">
-                            <label for="title" class="col-md-2 col-form-label">タイトル編集</label>
+                            <label for="title" class="col-md-2 col-form-label">Task名編集</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title', $task_form->title) }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="body" class="col-md-2 col-form-label">Task編集</label>
+                            <label for="body" class="col-md-2 col-form-label">詳細編集</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body', $task_form->body) }}">
                             </div>

@@ -7,10 +7,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <h2>Task管理ツール</h2>
             <div class="card">
                 <div class="card-header" style="height: 40px;">
-                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">リスト一覧</div>
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Task一覧</div>
                 </div>
                 <div class="card-body" style="padding: 1rem;">
                     <div class="row">
@@ -24,7 +23,7 @@
                         <div class="col-md-3">
                             <form action="{{ action('User\TaskController@index') }}" method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control input-lg" placeholder="Taskの検索" name="search_title" value="{{ $search_title }}">
+                                    <input type="text" class="form-control input-lg" placeholder="Task名の検索" name="search_title" value="{{ $search_title }}">
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </span>
@@ -38,8 +37,8 @@
                         <table class="table table-bordered mt-1">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">タイトル</th>
-                                    <th width="40%">Task</th>
+                                    <th width="20%">Task名</th>
+                                    <th width="40%">詳細</th>
                                     <th width="15%">登録日</th>
                                     <th width="15%">期限</th>
                                     <th width="10%">進捗</th>
@@ -79,7 +78,7 @@
         <div class="col-md-10 mx-auto">
             <div class="card mt-3">
                 <div class="card-header" style="height: 40px;">
-                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">リストの追加</div>
+                    <div class="card-title" style="font-size: 20px; position: relative; top: -5px;">Taskの追加</div>
                 </div>
                 <div class="card-body" style="padding: 1.0rem;">
                     <form action="{{ action('User\TaskController@store') }}" method="post" enctype="multipart/form-data">
@@ -92,13 +91,13 @@
                         </ul>
                         @endif
                         <div class="form-group row">
-                            <label for="title" class="col-md-2 col-form-label">タイトル</label>
+                            <label for="title" class="col-md-2 col-form-label">Task名</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="title" value="{{ old('title') }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="body" class="col-md-2 col-form-label">Task</label>
+                            <label for="body" class="col-md-2 col-form-label">詳細</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="body" value="{{ old('body') }}">
                             </div>
