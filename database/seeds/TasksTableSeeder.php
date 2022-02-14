@@ -14,37 +14,37 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             [
             'user_id' => 1,
-            'title' => 'titleテスト1',
+            'title' => 'テスト',
             'body' => 'Taskテスト1',
             'created_at' => '2022-02-01',
             ],
             [
             'user_id' => 1,
-            'title' => 'titleテスト2',
+            'title' => 'テスト',
             'body' => 'Taskテスト2',
             'created_at' => '2022-02-02',
             ],
             [
             'user_id' => 1,
-            'title' => 'titleテスト3',
+            'title' => 'テスト',
             'body' => 'Taskテスト3',
             'created_at' => '2022-02-03',
             ],
             [
             'user_id' => 1,
-            'title' => 'titleテスト4',
+            'title' => 'テスト２',
             'body' => 'Taskテスト4',
             'created_at' => '2022-02-04',
             ],
             [
             'user_id' => 1,
-            'title' => 'titleテスト5',
+            'title' => 'テスト２',
             'body' => 'Taskテスト5',
             'created_at' => '2022-02-05',
             ],
             [
             'user_id' => 1,
-            'title' => 'titleテスト6',
+            'title' => 'テスト２',
             'body' => 'Taskテスト6',
             'created_at' => '2022-02-06',
             ],
