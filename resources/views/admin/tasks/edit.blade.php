@@ -55,7 +55,7 @@
                                 <div class="row">
                                     <label for="name" class="col-md-2 col-form-label d-flex align-items-center">画像登録</label>
                                     <div class="col-md-7 d-flex align-items-center">
-                                        <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                        <input type="file"name="{{'image' .$i}}" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
                                     </div> 
                                     <div class="col-md-3 mt-2 d-flex justify-content-end align-items-center">
                                         <img src="https://techboost-todo.s3.ap-northeast-1.amazonaws.com/uizmvX6zLA1BoNmFsWzrfTwwJLSI2m2CrbpwrsyH.png" alt="no_image" width="70" height="70">
