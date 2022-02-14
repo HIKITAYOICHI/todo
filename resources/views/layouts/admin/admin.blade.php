@@ -49,11 +49,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.login') }}">{{ __('ログイン') }}</a>
                             </li>
-                            <!--@if (Route::has('register'))-->
-                            <!--    <li class="nav-item">-->
-                            <!--        <a class="nav-link" href="{{ route('admin.register') }}">{{ __('ユーザー登録') }}</a>-->
-                            <!--    </li>-->
-                            <!--@endif-->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
