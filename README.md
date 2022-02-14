@@ -1,7 +1,11 @@
 ## アプリケーション名  
 <h3 align="center">- Task管理ツール-</h3>
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/93024539/153768891-1c45addb-7747-4496-a194-eca8f23bffb0.gif" alt="tasktool_top" width="700px" height="546px"><br>
+    <img src="https://user-images.githubusercontent.com/93024539/153768891-1c45addb-7747-4496-a194-eca8f23bffb0.gif" alt="tasktool_top" width="700px" height="546px">
+</p>
+
+***    
+<p align="center">
     <a href="https://aws.amazon.com/jp/free/?trk=ps_a134p000003yhoyAAA&trkCampaign=acq_paid_search_brand&sc_channel=ps&sc_campaign=acquisition_JP&sc_publisher=google&sc_category=core&sc_country=JP&sc_geo=JP&sc_outcome=devadopt&sc_detail=%2Bamazon%20%2Baws&sc_content=Amazon%20AWS_bmm&sc_matchtype=b&sc_segment=487544183176&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|AWS|Core|JP|EN|Text|dx&ef_id=CjwKCAiA9aKQBhBREiwAyGP5lZW_CPeCnwIxElU1quqAl8fOToA7fvUWNy65IXSPLKK0UlBBhHn19RoCiN4QAvD_BwE:G:s&s_kwcid=AL!4422!3!487544183176!b!!g!!%2Bamazon%20%2Baws&gclid=CjwKCAiA9aKQBhBREiwAyGP5lZW_CPeCnwIxElU1quqAl8fOToA7fvUWNy65IXSPLKK0UlBBhHn19RoCiN4QAvD_BwE&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all">
         <img src="https://user-images.githubusercontent.com/93024539/153749998-7f76fd0c-feb7-407f-87ef-42b7a8fb5c55.png" width="170px;">
     </a>
@@ -20,7 +24,19 @@
     <a href="https://www.mysql.com/jp/">
         <img src="https://user-images.githubusercontent.com/93024539/153749496-988ee0d9-a793-41bb-9aed-cc38029da31e.png" width="190px" height="90px">
     </a>
-</p>
+</p><br>
+
+## 使用技術と環境について
+- 言語 : PHP7.3, Bootstrap4.1, HTML, CSS(Sass)
+- フレームワーク : laravel7.3
+- DBMS : Mysql5.7
+- インフラ(本番) : AWS　EC２ 
+- DNS : Amazon Route 53
+- ファイルストレージ : Amazon S３
+- Wedサーバー : Apache HTTP Server
+- その他使用技術 : Cloud9, git, github, Amazon WorkMail(メール)
+
+
 
 ## アプリケーション概要  
 ユーザーが登録したTaskでスケジュールの管理をすることができるTodoアプリケーションです。  
@@ -81,12 +97,18 @@ http://yoichi-tasktool.com/admin/tasks
     <img src="https://user-images.githubusercontent.com/93024539/153768802-e115b7aa-01c2-4346-a0dd-9cb86dfb372e.gif" width="550px">
 </p>
 
+## 各種テーブル
+| テーブル名 | 定義 |
+| - | - |
+| users | ユーザーの登録情報 |
+| admins | 管理者の登録情報 |
+| tasks | Taskの登録情報 |
+| images | 写真の登録情報 |
+| comments | コメントの登録情報 |
 
-## 使用技術と環境について
-- 言語 : PHP7.3, Bootstrap, HTML, CSS(Sass)
-- フレームワーク : Lalavel7.3
-- DBMS : Mysql5.7
-- インフラ : AWS(EC2, S3, Route 53, WorkMail(メール)) 
-- Wedサーバー : Apache HTTP Server
-- 開発環境 : Cloud9
-- その他使用技術
+## ER図
+<img src="https://user-images.githubusercontent.com/93024539/153884851-2b533f29-7c27-4ee5-9aa9-e1e3b97cc89f.png" width="500px">
+
+## ライセンス
+- <a href="https://raw.githubusercontent.com/HIKITAYOICHI/todo/master/LICENSE">MIT</a>
+
