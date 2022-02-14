@@ -73,8 +73,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('tasks/comment/store','CommentController@store');
         Route::get('tasks/comment/delete/{id}', 'CommentController@delete');
         // vendor/laravel/ui/auth-backend/RegistersUsers.php内のアクションから参照
-        // Route::get('register', 'Auth\RegisterController@register')->name('register');
-        // Route::post('register', 'Auth\RegisterController@register');
+        Route::get('register', 'Auth\RegisterController@register')->name('register');
+        Route::post('register', 'Auth\RegisterController@register');
         // Route::resource('home', 'HomeController', ['only' => 'index']);
         // Route::get('home', 'HomeController@index')->name('home');
         // Route::get('tasks/create','TaskController@add');

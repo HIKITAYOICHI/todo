@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <label for="name" class="col-md-2 col-form-label d-flex align-items-center">画像編集</label>
                                     <div class="col-md-7 d-flex align-items-center">
-                                        <input type="file"name="image0" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
+                                        <input type="file"name="{{'image' .$i}}" accept=".png, .jpg, .jpeg, .pdf, .doc" value="{{ old('name') }}">
                                         <input type="hidden" name='stored_image0' value="{{ $task_form->images[$i]->name }}">
                                     </div> 
                                     <div class="col-md-3 mt-2 d-flex justify-content-end align-items-center">
